@@ -1,0 +1,16 @@
+🚀⚡ GO BLAZING FAST BENCHMARK RESULTS ⚡🚀
+
+System: windows/amd64
+Go: go1.25.0
+CPU Cores: 16
+Elements: 100000000
+
+Go Goroutines Unrolled: 2.554ms (result: 4950000000)
+Go Goroutines: 4.411ms (result: 4950000000)
+Go Channels: 5.402ms (result: 4950000000)
+Go Unrolled: 19.268ms (result: 4950000000)
+Go Unsafe: 41.194ms (result: 4950000000)
+Go SoA Basic: 41.579ms (result: 4950000000)
+Go AoS Basic: 88.363ms (result: 4950000000)
+
+Best: Go Goroutines Unrolled - 2.554ms
