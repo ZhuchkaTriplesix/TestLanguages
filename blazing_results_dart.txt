@@ -1,0 +1,15 @@
+🚀⚡ DART BLAZING FAST BENCHMARK RESULTS ⚡🚀
+
+System: windows
+Dart: 3.8.1 (stable) (Wed May 28 00:47:25 2025 -0700) on "windows_x64"
+CPU Cores: 16
+Elements: 100000000
+
+Dart Unrolled: 38.954ms (result: 4950000000)
+Dart SoA Basic: 63.194ms (result: 4950000000)
+Dart Typed Data: 69.328ms (result: 4950000000)
+Dart Parallel: 135.054ms (result: 4950000000)
+Dart AoS Basic: 319.968ms (result: 4950000000)
+Dart AoS Functional: 405.158ms (result: 4950000000)
+
+Best: Dart Unrolled - 38.954ms
