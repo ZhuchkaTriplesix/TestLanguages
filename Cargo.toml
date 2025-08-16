@@ -1,0 +1,14 @@
+[package]
+name = "blazing"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+rayon = "1.10"
+cranelift = "0.109"
+cranelift-jit = "0.109" 
+cranelift-module = "0.109"
+cranelift-codegen = "0.109"
+cranelift-native = "0.109"
+cranelift-frontend = "0.109"
+target-lexicon = "0.12"
