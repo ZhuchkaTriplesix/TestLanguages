@@ -1,2 +1,2 @@
-AVX2: 49 - 1.0049ms
-JIT_FIXED: 49 - 106.3µs
+AVX2: 49 - 1.0142ms
+JIT_FIXED: 49 - 105.2µs

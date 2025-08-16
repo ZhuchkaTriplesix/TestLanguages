@@ -1,2 +1,2 @@
-GODLIKE: 49 - 90.6µs
-ULTRA: 49 - 83.7µs
+GODLIKE: 49 - 88.7µs
+ULTRA: 49 - 161.6µs

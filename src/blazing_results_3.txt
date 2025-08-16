@@ -1,0 +1,2 @@
+LUDICROUS: 49 - 83.5µs
+SIMD: 49 - 104.8µs
