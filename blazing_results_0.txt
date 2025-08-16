@@ -1,2 +1,2 @@
-PARALLEL: 49 - 81.5µs
-SoA: 49 - 147.9µs
+PARALLEL: 49 - 2.2824ms
+SoA: 49 - 2.5863ms

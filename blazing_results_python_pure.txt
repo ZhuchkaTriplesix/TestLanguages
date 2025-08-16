@@ -11,21 +11,21 @@
 
 📊 BENCHMARK RESULTS:
 ==================================================
-AoS Basic: 50 avg - 2601.709ms (1.0x faster)
-SoA Basic: 50 avg - 285.590ms (9.1x faster)
-Builtin Sum: 50 avg - 301.083ms (8.6x faster)
-Manual Loop: 50 avg - 1623.330ms (1.6x faster)
-While Loop: 50 avg - 4192.805ms (0.6x faster)
-Unrolled x2: 50 avg - 3735.881ms (0.7x faster)
-Unrolled x4: 50 avg - 2872.712ms (0.9x faster)
-Unrolled x8: 50 avg - 2655.263ms (1.0x faster)
-Chunked: 50 avg - 2561.481ms (1.0x faster)
-Slice Sum: 50 avg - 612.905ms (4.2x faster)
-Reduce: 50 avg - 2082.519ms (1.2x faster)
-Map Sum: 50 avg - 940.464ms (2.8x faster)
-MP Simple: 50 avg - 2078.116ms (1.3x faster)
-MP Optimized: 50 avg - 1905.395ms (1.4x faster)
+AoS Basic: 50 avg - 26.227ms (1.0x faster)
+SoA Basic: 50 avg - 2.416ms (10.9x faster)
+Builtin Sum: 50 avg - 2.462ms (10.7x faster)
+Manual Loop: 50 avg - 14.149ms (1.9x faster)
+While Loop: 50 avg - 39.052ms (0.7x faster)
+Unrolled x2: 50 avg - 33.846ms (0.8x faster)
+Unrolled x4: 50 avg - 25.752ms (1.0x faster)
+Unrolled x8: 50 avg - 23.168ms (1.1x faster)
+Chunked: 50 avg - 24.722ms (1.1x faster)
+Slice Sum: 50 avg - 4.385ms (6.0x faster)
+Reduce: 50 avg - 19.608ms (1.3x faster)
+Map Sum: 50 avg - 10.019ms (2.6x faster)
+MP Simple: 50 avg - 96.105ms (0.3x faster)
+MP Optimized: 50 avg - 171.586ms (0.2x faster)
 ==================================================
 
-🏆 FASTEST: SoA Basic - 285.590ms
-💥 MAX SPEEDUP: 9.1x faster than baseline
+🏆 FASTEST: SoA Basic - 2.416ms
+💥 MAX SPEEDUP: 10.9x faster than baseline
