@@ -10,7 +10,7 @@ Go SoA Basic: 0.000ms (result: 49500000)
 Go Unrolled: 0.000ms (result: 49500000)
 Go Unsafe: 0.000ms (result: 49500000)
 Go Goroutines: 0.000ms (result: 49500000)
-Go Channels: 0.000ms (result: 49500000)
-Go Goroutines Unrolled: 2.515ms (result: 49500000)
+Go Goroutines Unrolled: 0.000ms (result: 49500000)
+Go Channels: 1.352ms (result: 49500000)
 
 Best: Go AoS Basic - 0.000ms

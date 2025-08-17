@@ -5,11 +5,11 @@ Dart: 3.8.1 (stable) (Wed May 28 00:47:25 2025 -0700) on "windows_x64"
 CPU Cores: 16
 Elements: 1000000
 
-Dart Parallel: 0.843ms (result: 49500000)
-Dart SoA Basic: 1.129ms (result: 49500000)
-Dart Typed Data: 1.149ms (result: 49500000)
-Dart Unrolled: 1.512ms (result: 49500000)
-Dart AoS Functional: 4.699ms (result: 49500000)
-Dart AoS Basic: 5.418ms (result: 49500000)
+Dart Parallel: 0.942ms (result: 49500000)
+Dart Typed Data: 1.430ms (result: 49500000)
+Dart SoA Basic: 1.534ms (result: 49500000)
+Dart Unrolled: 1.634ms (result: 49500000)
+Dart AoS Basic: 4.754ms (result: 49500000)
+Dart AoS Functional: 5.773ms (result: 49500000)
 
-Best: Dart Parallel - 0.843ms
+Best: Dart Parallel - 0.942ms
