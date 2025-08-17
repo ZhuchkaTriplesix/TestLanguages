@@ -1,0 +1,15 @@
+🚀⚡ C BLAZING FAST BENCHMARK RESULTS ⚡🚀
+
+Compiler: Clang Clang 12.0.0
+CPU Cores: 16
+Elements: 10000000
+
+C Threads Unrolled: 0.720ms (result: 495000000)
+C Threads: 1.068ms (result: 495000000)
+C Unrolled: 1.140ms (result: 495000000)
+C AVX/SIMD: 1.151ms (result: 495000000)
+C SoA Basic: 2.080ms (result: 495000000)
+C Pointer: 2.267ms (result: 495000000)
+C AoS Basic: 10.448ms (result: 495000000)
+
+Best: C Threads Unrolled - 0.720ms

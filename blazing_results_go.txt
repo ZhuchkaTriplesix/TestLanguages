@@ -5,12 +5,12 @@ Go: go1.25.0
 CPU Cores: 16
 Elements: 1000000
 
-Go AoS Basic: 0.000ms (result: 49500000)
 Go SoA Basic: 0.000ms (result: 49500000)
 Go Unrolled: 0.000ms (result: 49500000)
 Go Unsafe: 0.000ms (result: 49500000)
-Go Goroutines: 0.000ms (result: 49500000)
 Go Goroutines Unrolled: 0.000ms (result: 49500000)
-Go Channels: 1.352ms (result: 49500000)
+Go Channels: 0.000ms (result: 49500000)
+Go Goroutines: 1.049ms (result: 49500000)
+Go AoS Basic: 7.269ms (result: 49500000)
 
-Best: Go AoS Basic - 0.000ms
+Best: Go SoA Basic - 0.000ms

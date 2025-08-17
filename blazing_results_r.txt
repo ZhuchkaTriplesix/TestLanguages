@@ -8,16 +8,16 @@
 
 📊 BENCHMARK RESULTS:
 ==================================================
-R Vectorized: 49.5 avg - 2.249ms (Infx faster)
-R Builtin Sum: 49.5 avg - 2.21ms (Infx faster)
-R ColSums: 49.5 avg - 2.211ms (Infx faster)
-R Loop (slow): 49.5 avg - 14.193ms (Infx faster)
-R Apply: 49.5 avg - 4.811ms (Infx faster)
-R Reduce: 49.5 avg - 271.689ms (Infx faster)
-R data.table: 49.5 avg - 4.957ms (Infx faster)
-R Rcpp (C++): 49.5 avg - 910.645ms (Infx faster)
-R Parallel: 49.5 avg - 884.695ms (Infx faster)
+R Vectorized: 49.5 avg - 2.121ms (Infx faster)
+R Builtin Sum: 49.5 avg - 2.292ms (Infx faster)
+R ColSums: 49.5 avg - 2.335ms (Infx faster)
+R Loop (slow): 49.5 avg - 16.117ms (Infx faster)
+R Apply: 49.5 avg - 4.897ms (Infx faster)
+R Reduce: 49.5 avg - 282.11ms (Infx faster)
+R data.table: 49.5 avg - 4.299ms (Infx faster)
+R Rcpp (C++): 49.5 avg - 897.929ms (Infx faster)
+R Parallel: 49.5 avg - 1114.899ms (Infx faster)
 ==================================================
 
-🏆 FASTEST: R Builtin Sum - 2.21 ms
+🏆 FASTEST: R Vectorized - 2.121 ms
 💥 MAX SPEEDUP: Inf x faster than baseline

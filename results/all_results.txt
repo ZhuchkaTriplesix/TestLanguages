@@ -1,0 +1,2109 @@
+🚀⚡ BLAZING FAST MULTI-LANGUAGE BENCHMARK RESULTS ⚡🚀 
+ 
+Generated: 17.08.2025 11:17:48,45 
+ 
+=== ASSEMBLY 1000 ELEMENTS === 
+🚀⚡ ASSEMBLY-LEVEL OPTIMIZED BENCHMARK SUITE ⚡🚀
+
+📊 Testing with 1000 users...
+
+🎯 ULTRA-OPTIMIZED PERFORMANCE TESTS:
+
+🔥 Testing C Basic...
+   Result: 57619 in 0.000 ms
+🔥 Testing Ultra Unrolled 16x...
+   Result: 57619 in 0.000 ms
+🔥 Testing Pointer Optimized...
+   Result: 57619 in 0.003 ms
+🔥 Testing SSE2 SIMD Optimized...
+   Result: 57619 in 0.000 ms
+🔥 Testing EXTREME Optimized...
+   Result: 57619 in 0.000 ms
+
+🚀 PERFORMANCE ANALYSIS:
+
+Ultra Unrolled vs Basic:  1.00x faster
+Pointer vs Basic:         0.08x faster
+SSE2 vs Basic:            2.00x faster
+EXTREME vs Basic:         1.00x faster
+
+⚡ PERFORMANCE ESTIMATES:
+C Basic:         ~0.200 ms/M elements
+Ultra Unrolled:  ~0.200 ms/M elements
+Pointer:         ~2.600 ms/M elements
+SSE2:            ~0.100 ms/M elements
+EXTREME:         ~0.200 ms/M elements
+
+🏆 CHAMPION: SSE2 with 0.000 ms
+💥 Assembly-level optimizations achieve maximum performance!
+🎯 Expected performance: < 0.1ms for 1M elements
+
+🔥 COMPARISON WITH OTHER LANGUAGES:
+Expected speedup vs standard C:   3-5x faster
+Expected speedup vs Rust:         2-4x faster
+Expected speedup vs Go:           10-20x faster
+Expected speedup vs Python:       500-1000x faster
+ 
+=== C 1000 ELEMENTS === 
+🚀⚡ C BLAZING FAST BENCHMARK SUITE ⚡🚀
+
+📊 SYSTEM INFO:
+   Compiler: Clang Clang 12.0.0
+   CPU Cores: 16
+   Threads: 4
+   AVX2 Support: No
+
+Processing 1000 users
+C provides maximum performance with manual optimization!
+
+🏗️ Creating test data...
+Data creation: 0ms
+
+🚀 Running benchmarks...
+
+📊 RESULTS:
+
+🥇 C AVX/SIMD: 0.000ms (1.0x)
+🥈 C Unrolled: 0.000ms (0.5x)
+🥉 C SoA Basic: 0.000ms (0.3x)
+🔸 C Pointer: 0.000ms (0.3x)
+🔸 C AoS Basic: 0.000ms (0.3x)
+🔸 C Threads: 0.597ms (0.0x)
+🔸 C Threads Unrolled: 0.600ms (0.0x)
+
+🎯 C PERFORMANCE INSIGHTS:
+   • Manual memory management eliminates GC overhead
+   • SIMD intrinsics provide vectorized operations
+   • Loop unrolling reduces branching overhead
+   • pthread provides efficient multithreading
+   • Cache-aligned data improves memory access
+   • Compiler optimizations (-O3) are crucial
+
+✅ Verification: All results match!
+   Expected sum: 49500
+   Actual results: 49500
+
+🏆 C CHAMPION: C AVX/SIMD
+⚡ Best time: 0.000ms
+🚀 Elements per second: 9999999525
+
+📝 Results saved to blazing_results_c.txt
+
+🎉 C benchmark complete!
+ 
+=== RUST 1000 ELEMENTS === 
+User size: 40
+User alignment: 8
+Average age: 49
+Elapsed time: 104.5762ms
+Average age soa: 49
+Elapsed time soa: 3.0255ms
+
+🔥 SIMD BLAZING FAST VERSION 🔥
+Average age SIMD: 49
+Elapsed time SIMD: 10.8502ms
+
+⚡ ULTRA FAST UNSAFE VERSION ⚡
+Average age ULTRA: 49
+Elapsed time ULTRA: 8.6023ms
+
+🌟 PARALLEL ULTRA VERSION 🌟
+Average age PARALLEL: 49
+Elapsed time PARALLEL: 2.2081ms
+
+👑 GODLIKE VERSION (32-byte chunks) 👑
+Average age GODLIKE: 49
+Elapsed time GODLIKE: 5.3388ms
+
+🌌 QUANTUM VERSION (optimized for small arrays) 🌌
+Average age QUANTUM: 49
+Elapsed time QUANTUM: 4.6979ms
+
+🔥 ASSEMBLY VERSION (inline asm) 🔥
+Average age ASSEMBLY: 49
+Elapsed time ASSEMBLY: 31.3501ms
+
+🌊 AVX2 FIXED VERSION (256-bit SIMD) 🌊
+Average age AVX2: 49
+Elapsed time AVX2: 102.471ms
+
+⚡🌌⚡ LUDICROUS SPEED VERSION (64-byte chunks) ⚡🌌⚡
+Average age LUDICROUS: 49
+Elapsed time LUDICROUS: 9.1731ms
+
+🚀⚡🚀 PARALLEL LUDICROUS VERSION (beyond time itself) 🚀⚡🚀
+Average age PARALLEL LUDICROUS: 49
+Elapsed time PARALLEL LUDICROUS: 19.692ms
+
+🔥🔥🔥 JIT FIXED VERSION (pseudo-JIT) 🔥🔥🔥
+Average age JIT FIXED: 49
+Elapsed time JIT FIXED: 11.9269ms
+
+📊 PERFORMANCE COMPARISON:
+Rust AoS (Array of Structs): 104.5762ms
+Rust SoA (Struct of Arrays): 3.0255ms
+Rust SIMD (Vectorized):      10.8502ms
+Rust ULTRA (Unsafe):         8.6023ms
+Rust PARALLEL (Multi-core):  2.2081ms
+Rust GODLIKE (32-byte):       5.3388ms
+Rust QUANTUM (Optimized):    4.6979ms
+Rust ASSEMBLY (inline asm):  31.3501ms
+Rust AVX2 FIXED (256-bit):   102.471ms
+Rust LUDICROUS (64-byte):     9.1731ms
+Rust PAR_LUDICROUS (beyond):  19.692ms
+Rust JIT FIXED (pseudo):     11.9269ms
+
+🚄 НЕВЫНОСИМЫЕ УСКОРЕНИЯ vs AoS:
+SIMD:          10x faster
+ULTRA:         12x faster
+PARALLEL:      47x faster
+GODLIKE:       20x faster
+QUANTUM:       22x faster
+ASSEMBLY:      3x faster
+AVX2 FIXED:    1x faster
+LUDICROUS:     11x faster
+PAR_LUDICROUS: 5x faster
+JIT FIXED:     9x faster
+
+🏆🚀⚡ АБСОЛЮТНЫЙ ПОБЕДИТЕЛЬ: 🌟 PARALLEL with 2.2081ms! ⚡🚀🏆
+💥 НЕВЫНОСИМОЕ УСКОРЕНИЕ: 47x быстрее базовой реализации!
+
+🚀💾 BLAZING FAST I/O DEMONSTRATION 💾🚀
+
+⚡📊 ULTRA FAST PRINT (zero allocations):
+PARALLEL: 49 - 2ms (47x faster)
+SoA: 49 - 3ms (34x faster)
+PAR_LUDICROUS: 49 - 19ms (5x faster)
+Ultra fast print time: 6.5µs
+
+🚀💾 BUFFERED FILE WRITE:
+Memory-mapped file write time: 440.3µs
+
+🚀📁 PARALLEL FILE WRITE:
+Parallel file write time: 862.4µs
+
+🎯 I/O OPTIMIZATION SUMMARY:
+• Zero-allocation printing: избегает malloc/free
+• Large buffers (64KB-1MB): минимизирует системные вызовы
+• Memory-mapped I/O: bypass kernel buffers
+• Parallel file writes: использует все ядра для I/O
+• Stack-allocated formatting: никаких String аллокаций
+
+🚀 Generated files: blazing_results.txt, blazing_results_0-3.txt
+💥 I/O теперь тоже работает с LUDICROUS SPEED! 💥
+ 
+=== GO 1000 ELEMENTS === 
+🚀⚡ GO BLAZING FAST BENCHMARK SUITE ⚡🚀
+
+📊 SYSTEM INFO:
+   Go Version: go1.25.0
+   Platform: windows/amd64
+   CPU Cores: 16
+   Goroutines: 1
+
+Processing 1000000 users
+Go is optimized for concurrency and simplicity!
+
+🏗️ Creating test data...
+Data creation: 138ms
+
+🚀 Running benchmarks...
+
+📊 RESULTS:
+
+🥇 Go AoS Basic: 0.000ms (NaNx)
+🥈 Go SoA Basic: 0.000ms (NaNx)
+🥉 Go Unsafe: 0.000ms (NaNx)
+🔸 Go Goroutines: 0.000ms (NaNx)
+🔸 Go Goroutines Unrolled: 0.000ms (NaNx)
+🔸 Go Channels: 0.000ms (NaNx)
+🔸 Go Unrolled: 4.975ms (0.0x)
+
+🎯 GO PERFORMANCE INSIGHTS:
+   • Goroutines provide excellent concurrency with low overhead
+   • Loop unrolling improves performance on predictable data
+   • Unsafe operations can provide C-like performance
+   • Channels enable elegant CSP-style communication
+   • Static compilation ensures consistent performance
+   • Garbage collector is optimized for low latency
+
+✅ Verification: All results match!
+   Expected sum: 49500000
+   Actual results: {49500000}
+
+🏆 GO CHAMPION: Go AoS Basic
+⚡ Best time: 0.000ms
+🚀 Elements per second: +Inf
+
+📝 Results saved to blazing_results_go.txt
+
+🎉 Go benchmark complete!
+ 
+=== PYTHON 1000 ELEMENTS === 
+Traceback (most recent call last):
+  File "C:\Users\User\Desktop\blazing\blazing_python_main.py", line 28, in <module>
+    import numpy as np
+ModuleNotFoundError: No module named 'numpy'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\User\Desktop\blazing\blazing_python_main.py", line 32, in <module>
+    print("\u274c NumPy not available")
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1251.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 0: character maps to <undefined>
+ 
+=== DART 1000 ELEMENTS === 
+🚀⚡ DART BLAZING FAST BENCHMARK SUITE ⚡🚀
+
+📊 SYSTEM INFO:
+   Dart Version: 3.8.1 (stable) (Wed May 28 00:47:25 2025 -0700) on "windows_x64"
+   Platform: windows
+   CPU Cores: 16
+   Executable: C:\Users\User\Documents\flutter\bin\cache\dart-sdk\bin\dart.exe
+
+Processing 1000000 users
+Dart is optimized for both AOT and JIT compilation!
+
+🏗️ Creating test data...
+Data creation: 267ms
+
+🚀 Running benchmarks...
+
+📊 RESULTS:
+
+🥇 Dart Parallel: 0.797ms (1.0x)
+🥈 Dart Unrolled: 1.824ms (0.4x)
+🥉 Dart SoA Basic: 1.827ms (0.4x)
+🔸 Dart Typed Data: 1.847ms (0.4x)
+🔸 Dart AoS Basic: 4.427ms (0.2x)
+🔸 Dart AoS Functional: 5.160ms (0.2x)
+
+🎯 DART PERFORMANCE INSIGHTS:
+   • AOT compilation provides consistent performance
+   • Typed data (Uint8List) is faster than generic lists
+   • Loop unrolling helps with predictable access patterns
+   • Isolates have overhead but scale well for large datasets
+   • Sound null safety enables aggressive optimizations
+
+✅ Verification: All results match!
+   Expected sum: 49500000
+   Actual results: {49500000}
+
+🏆 DART CHAMPION: Dart Parallel
+⚡ Best time: 0.797ms
+🚀 Elements per second: 1254705144
+
+📝 Results saved to blazing_results_dart.txt
+
+🎉 Dart benchmark complete!
+ 
+=== R 1000 ELEMENTS === 
+🚀⚡ R BLAZING FAST BENCHMARK SUITE ⚡🚀
+
+📊 SYSTEM INFO:
+   R Version: R version 4.5.1 (2025-06-13 ucrt) 
+   Platform: x86_64-w64-mingw32 
+   CPU Cores: 16 
+   Memory: Inf GB limit
+Warning message:
+'memory.limit()' is no longer supported 
+
+Processing 1e+06 users
+R is optimized for vectorized operations!
+
+📊 Creating test data...
+✅ Test data created in 641.17 ms
+
+🚀 Running R benchmarks...
+
+🔥 Testing R DataFrame ...
+   ❌ Error: $ operator is invalid for atomic vectors 
+
+🔥 Testing R Vectorized ...
+   Result: 49.5 avg age
+   Time: 2.174 ms
+
+🔥 Testing R Builtin Sum ...
+   Result: 49.5 avg age
+   Time: 2.169 ms
+
+🔥 Testing R ColSums ...
+   Result: 49.5 avg age
+   Time: 2.291 ms
+
+🔥 Testing R Loop (slow) ...
+   Result: 49.5 avg age
+   Time: 15.949 ms
+
+🔥 Testing R Apply ...
+   Result: 49.5 avg age
+   Time: 5.376 ms
+
+🔥 Testing R Reduce ...
+   Result: 49.5 avg age
+   Time: 271.759 ms
+
+🔥 Testing R data.table ...
+   Result: 49.5 avg age
+   Time: 4.471 ms
+
+🔥 Testing R Rcpp (C++) ...
+Error in if (nzchar(cxx)) { : argument is of length zero
+Calls: <Anonymous> -> .shlib_internal
+Execution halted
+
+WARNING: The tools required to build C++ code for R were not found.
+
+Please download and install the appropriate version of Rtools:
+
+http://cran.r-project.org/bin/windows/Rtools/
+
+Error in if (nzchar(cxx)) { : argument is of length zero
+Calls: <Anonymous> -> .shlib_internal
+Execution halted
+
+WARNING: The tools required to build C++ code for R were not found.
+
+Please download and install the appropriate version of Rtools:
+
+http://cran.r-project.org/bin/windows/Rtools/
+
+   Result: 49.5 avg age
+   Time: 905.337 ms
+
+🔥 Testing R Parallel ...
+   Result: 49.5 avg age
+   Time: 1100.833 ms
+
+📊 R PERFORMANCE COMPARISON:
+====================================================================== 
+Algorithm            Avg Age    Time (ms)    Speedup   
+====================================================================== 
+R Vectorized         49.5       2.174        Infx      
+R Builtin Sum        49.5       2.169        Infx      
+R ColSums            49.5       2.291        Infx      
+R Loop (slow)        49.5       15.949       Infx      
+R Apply              49.5       5.376        Infx      
+R Reduce             49.5       271.759      Infx      
+R data.table         49.5       4.471        Infx      
+R Rcpp (C++)         49.5       905.337      Infx      
+R Parallel           49.5       1100.833     Infx      
+====================================================================== 
+
+🏆⚡ АБСОЛЮТНЫЙ ПОБЕДИТЕЛЬ R: R Builtin Sum 
+    Время: 2.169 ms
+    Ускорение: Inf x
+
+🔬 COMPARISON WITH OTHER LANGUAGES:
+Rust QUANTUM: ~44.5µs (1M elements)
+C++ ULTRA: ~86µs (1M elements)
+Python SoA: ~2.58ms (1M elements)
+R Best: 2.17 ms ( 1e+06 elements)
+
+💾 Results written to: blazing_results_r.txt 
+🎯 R OPTIMIZATION SUMMARY:
+✅ Vectorized operations: R's natural strength
+✅ Built-in sum(): Highly optimized C implementation
+✅ Matrix operations: ColSums for numerical data
+✅ data.table: High-performance data manipulation
+✅ Rcpp: C++ integration for maximum speed
+✅ Parallel computing: Built-in cluster support
+❌ Loops: Generally slow in R (use vectorization!)
+
+💥 R BENCHMARK COMPLETE! 💥
+📊 R показывает отличные результаты для статистических вычислений! 📊⚡
+
+🚀 For BLAZING FAST R performance, consider:
+   • data.table: install.packages('data.table')
+   • Rcpp: install.packages('Rcpp')
+   • parallel: built-in parallelization
+   • Matrix operations: use vectorization!
+ 
+=== ASSEMBLY 10000 ELEMENTS === 
+🚀⚡ ASSEMBLY-LEVEL OPTIMIZED BENCHMARK SUITE ⚡🚀
+
+📊 Testing with 10000 users...
+
+🎯 ULTRA-OPTIMIZED PERFORMANCE TESTS:
+
+🔥 Testing C Basic...
+   Result: 582679 in 0.002 ms
+🔥 Testing Ultra Unrolled 16x...
+   Result: 582679 in 0.002 ms
+🔥 Testing Pointer Optimized...
+   Result: 582679 in 0.003 ms
+🔥 Testing SSE2 SIMD Optimized...
+   Result: 582679 in 0.000 ms
+🔥 Testing EXTREME Optimized...
+   Result: 582679 in 0.001 ms
+
+🚀 PERFORMANCE ANALYSIS:
+
+Ultra Unrolled vs Basic:  1.27x faster
+Pointer vs Basic:         0.63x faster
+SSE2 vs Basic:            4.75x faster
+EXTREME vs Basic:         3.80x faster
+
+⚡ PERFORMANCE ESTIMATES:
+C Basic:         ~0.190 ms/M elements
+Ultra Unrolled:  ~0.150 ms/M elements
+Pointer:         ~0.300 ms/M elements
+SSE2:            ~0.040 ms/M elements
+EXTREME:         ~0.050 ms/M elements
+
+🏆 CHAMPION: SSE2 with 0.000 ms
+💥 Assembly-level optimizations achieve maximum performance!
+🎯 Expected performance: < 0.1ms for 1M elements
+
+🔥 COMPARISON WITH OTHER LANGUAGES:
+Expected speedup vs standard C:   3-5x faster
+Expected speedup vs Rust:         2-4x faster
+Expected speedup vs Go:           10-20x faster
+Expected speedup vs Python:       500-1000x faster
+ 
+=== C 10000 ELEMENTS === 
+🚀⚡ C BLAZING FAST BENCHMARK SUITE ⚡🚀
+
+📊 SYSTEM INFO:
+   Compiler: Clang Clang 12.0.0
+   CPU Cores: 16
+   Threads: 4
+   AVX2 Support: No
+
+Processing 10000 users
+C provides maximum performance with manual optimization!
+
+🏗️ Creating test data...
+Data creation: 3ms
+
+🚀 Running benchmarks...
+
+📊 RESULTS:
+
+🥇 C Unrolled: 0.001ms (1.0x)
+🥈 C AVX/SIMD: 0.001ms (1.0x)
+🥉 C Pointer: 0.002ms (0.6x)
+🔸 C SoA Basic: 0.002ms (0.6x)
+🔸 C AoS Basic: 0.009ms (0.1x)
+🔸 C Threads Unrolled: 0.531ms (0.0x)
+🔸 C Threads: 0.556ms (0.0x)
+
+🎯 C PERFORMANCE INSIGHTS:
+   • Manual memory management eliminates GC overhead
+   • SIMD intrinsics provide vectorized operations
+   • Loop unrolling reduces branching overhead
+   • pthread provides efficient multithreading
+   • Cache-aligned data improves memory access
+   • Compiler optimizations (-O3) are crucial
+
+✅ Verification: All results match!
+   Expected sum: 495000
+   Actual results: 495000
+
+🏆 C CHAMPION: C Unrolled
+⚡ Best time: 0.001ms
+🚀 Elements per second: 8333332938
+
+📝 Results saved to blazing_results_c.txt
+
+🎉 C benchmark complete!
+ 
+=== RUST 10000 ELEMENTS === 
+User size: 40
+User alignment: 8
+Average age: 49
+Elapsed time: 86.9556ms
+Average age soa: 49
+Elapsed time soa: 2.4696ms
+
+🔥 SIMD BLAZING FAST VERSION 🔥
+Average age SIMD: 49
+Elapsed time SIMD: 10.9553ms
+
+⚡ ULTRA FAST UNSAFE VERSION ⚡
+Average age ULTRA: 49
+Elapsed time ULTRA: 8.5397ms
+
+🌟 PARALLEL ULTRA VERSION 🌟
+Average age PARALLEL: 49
+Elapsed time PARALLEL: 2.3146ms
+
+👑 GODLIKE VERSION (32-byte chunks) 👑
+Average age GODLIKE: 49
+Elapsed time GODLIKE: 4.8241ms
+
+🌌 QUANTUM VERSION (optimized for small arrays) 🌌
+Average age QUANTUM: 49
+Elapsed time QUANTUM: 4.4776ms
+
+🔥 ASSEMBLY VERSION (inline asm) 🔥
+Average age ASSEMBLY: 49
+Elapsed time ASSEMBLY: 30.3931ms
+
+🌊 AVX2 FIXED VERSION (256-bit SIMD) 🌊
+Average age AVX2: 49
+Elapsed time AVX2: 99.6252ms
+
+⚡🌌⚡ LUDICROUS SPEED VERSION (64-byte chunks) ⚡🌌⚡
+Average age LUDICROUS: 49
+Elapsed time LUDICROUS: 8.7339ms
+
+🚀⚡🚀 PARALLEL LUDICROUS VERSION (beyond time itself) 🚀⚡🚀
+Average age PARALLEL LUDICROUS: 49
+Elapsed time PARALLEL LUDICROUS: 2.4521ms
+
+🔥🔥🔥 JIT FIXED VERSION (pseudo-JIT) 🔥🔥🔥
+Average age JIT FIXED: 49
+Elapsed time JIT FIXED: 10.8964ms
+
+📊 PERFORMANCE COMPARISON:
+Rust AoS (Array of Structs): 86.9556ms
+Rust SoA (Struct of Arrays): 2.4696ms
+Rust SIMD (Vectorized):      10.9553ms
+Rust ULTRA (Unsafe):         8.5397ms
+Rust PARALLEL (Multi-core):  2.3146ms
+Rust GODLIKE (32-byte):       4.8241ms
+Rust QUANTUM (Optimized):    4.4776ms
+Rust ASSEMBLY (inline asm):  30.3931ms
+Rust AVX2 FIXED (256-bit):   99.6252ms
+Rust LUDICROUS (64-byte):     8.7339ms
+Rust PAR_LUDICROUS (beyond):  2.4521ms
+Rust JIT FIXED (pseudo):     10.8964ms
+
+🚄 НЕВЫНОСИМЫЕ УСКОРЕНИЯ vs AoS:
+SIMD:          8x faster
+ULTRA:         10x faster
+PARALLEL:      38x faster
+GODLIKE:       18x faster
+QUANTUM:       19x faster
+ASSEMBLY:      3x faster
+AVX2 FIXED:    1x faster
+LUDICROUS:     10x faster
+PAR_LUDICROUS: 35x faster
+JIT FIXED:     8x faster
+
+🏆🚀⚡ АБСОЛЮТНЫЙ ПОБЕДИТЕЛЬ: 🌟 PARALLEL with 2.3146ms! ⚡🚀🏆
+💥 НЕВЫНОСИМОЕ УСКОРЕНИЕ: 38x быстрее базовой реализации!
+
+🚀💾 BLAZING FAST I/O DEMONSTRATION 💾🚀
+
+⚡📊 ULTRA FAST PRINT (zero allocations):
+PARALLEL: 49 - 2ms (37x faster)
+SoA: 49 - 2ms (35x faster)
+PAR_LUDICROUS: 49 - 2ms (35x faster)
+Ultra fast print time: 6µs
+
+🚀💾 BUFFERED FILE WRITE:
+Memory-mapped file write time: 432µs
+
+🚀📁 PARALLEL FILE WRITE:
+Parallel file write time: 972.1µs
+
+🎯 I/O OPTIMIZATION SUMMARY:
+• Zero-allocation printing: избегает malloc/free
+• Large buffers (64KB-1MB): минимизирует системные вызовы
+• Memory-mapped I/O: bypass kernel buffers
+• Parallel file writes: использует все ядра для I/O
+• Stack-allocated formatting: никаких String аллокаций
+
+🚀 Generated files: blazing_results.txt, blazing_results_0-3.txt
+💥 I/O теперь тоже работает с LUDICROUS SPEED! 💥
+ 
+=== GO 10000 ELEMENTS === 
+🚀⚡ GO BLAZING FAST BENCHMARK SUITE ⚡🚀
+
+📊 SYSTEM INFO:
+   Go Version: go1.25.0
+   Platform: windows/amd64
+   CPU Cores: 16
+   Goroutines: 1
+
+Processing 1000000 users
+Go is optimized for concurrency and simplicity!
+
+🏗️ Creating test data...
+Data creation: 150ms
+
+🚀 Running benchmarks...
+
+📊 RESULTS:
+
+🥇 Go AoS Basic: 0.000ms (NaNx)
+🥈 Go SoA Basic: 0.000ms (NaNx)
+🥉 Go Unrolled: 0.000ms (NaNx)
+🔸 Go Unsafe: 0.000ms (NaNx)
+🔸 Go Goroutines: 0.000ms (NaNx)
+🔸 Go Goroutines Unrolled: 0.000ms (NaNx)
+🔸 Go Channels: 0.000ms (NaNx)
+
+🎯 GO PERFORMANCE INSIGHTS:
+   • Goroutines provide excellent concurrency with low overhead
+   • Loop unrolling improves performance on predictable data
+   • Unsafe operations can provide C-like performance
+   • Channels enable elegant CSP-style communication
+   • Static compilation ensures consistent performance
+   • Garbage collector is optimized for low latency
+
+✅ Verification: All results match!
+   Expected sum: 49500000
+   Actual results: {49500000}
+
+🏆 GO CHAMPION: Go AoS Basic
+⚡ Best time: 0.000ms
+🚀 Elements per second: +Inf
+
+📝 Results saved to blazing_results_go.txt
+
+🎉 Go benchmark complete!
+ 
+=== PYTHON 10000 ELEMENTS === 
+Traceback (most recent call last):
+  File "C:\Users\User\Desktop\blazing\blazing_python_main.py", line 28, in <module>
+    import numpy as np
+ModuleNotFoundError: No module named 'numpy'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\User\Desktop\blazing\blazing_python_main.py", line 32, in <module>
+    print("\u274c NumPy not available")
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1251.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 0: character maps to <undefined>
+ 
+=== DART 10000 ELEMENTS === 
+🚀⚡ DART BLAZING FAST BENCHMARK SUITE ⚡🚀
+
+📊 SYSTEM INFO:
+   Dart Version: 3.8.1 (stable) (Wed May 28 00:47:25 2025 -0700) on "windows_x64"
+   Platform: windows
+   CPU Cores: 16
+   Executable: C:\Users\User\Documents\flutter\bin\cache\dart-sdk\bin\dart.exe
+
+Processing 1000000 users
+Dart is optimized for both AOT and JIT compilation!
+
+🏗️ Creating test data...
+Data creation: 304ms
+
+🚀 Running benchmarks...
+
+📊 RESULTS:
+
+🥇 Dart Parallel: 1.074ms (1.0x)
+🥈 Dart Unrolled: 1.803ms (0.6x)
+🥉 Dart SoA Basic: 2.618ms (0.4x)
+🔸 Dart Typed Data: 2.843ms (0.4x)
+🔸 Dart AoS Functional: 6.324ms (0.2x)
+🔸 Dart AoS Basic: 8.267ms (0.1x)
+
+🎯 DART PERFORMANCE INSIGHTS:
+   • AOT compilation provides consistent performance
+   • Typed data (Uint8List) is faster than generic lists
+   • Loop unrolling helps with predictable access patterns
+   • Isolates have overhead but scale well for large datasets
+   • Sound null safety enables aggressive optimizations
+
+✅ Verification: All results match!
+   Expected sum: 49500000
+   Actual results: {49500000}
+
+🏆 DART CHAMPION: Dart Parallel
+⚡ Best time: 1.074ms
+🚀 Elements per second: 931098696
+
+📝 Results saved to blazing_results_dart.txt
+
+🎉 Dart benchmark complete!
+ 
+=== R 10000 ELEMENTS === 
+🚀⚡ R BLAZING FAST BENCHMARK SUITE ⚡🚀
+
+📊 SYSTEM INFO:
+   R Version: R version 4.5.1 (2025-06-13 ucrt) 
+   Platform: x86_64-w64-mingw32 
+   CPU Cores: 16 
+   Memory: Inf GB limit
+Warning message:
+'memory.limit()' is no longer supported 
+
+Processing 1e+06 users
+R is optimized for vectorized operations!
+
+📊 Creating test data...
+✅ Test data created in 619.28 ms
+
+🚀 Running R benchmarks...
+
+🔥 Testing R DataFrame ...
+   ❌ Error: $ operator is invalid for atomic vectors 
+
+🔥 Testing R Vectorized ...
+   Result: 49.5 avg age
+   Time: 2.592 ms
+
+🔥 Testing R Builtin Sum ...
+   Result: 49.5 avg age
+   Time: 2.328 ms
+
+🔥 Testing R ColSums ...
+   Result: 49.5 avg age
+   Time: 2.205 ms
+
+🔥 Testing R Loop (slow) ...
+   Result: 49.5 avg age
+   Time: 17.133 ms
+
+🔥 Testing R Apply ...
+   Result: 49.5 avg age
+   Time: 5.463 ms
+
+🔥 Testing R Reduce ...
+   Result: 49.5 avg age
+   Time: 275.548 ms
+
+🔥 Testing R data.table ...
+   Result: 49.5 avg age
+   Time: 4.227 ms
+
+🔥 Testing R Rcpp (C++) ...
+Error in if (nzchar(cxx)) { : argument is of length zero
+Calls: <Anonymous> -> .shlib_internal
+Execution halted
+
+WARNING: The tools required to build C++ code for R were not found.
+
+Please download and install the appropriate version of Rtools:
+
+http://cran.r-project.org/bin/windows/Rtools/
+
+Error in if (nzchar(cxx)) { : argument is of length zero
+Calls: <Anonymous> -> .shlib_internal
+Execution halted
+
+WARNING: The tools required to build C++ code for R were not found.
+
+Please download and install the appropriate version of Rtools:
+
+http://cran.r-project.org/bin/windows/Rtools/
+
+   Result: 49.5 avg age
+   Time: 921.357 ms
+
+🔥 Testing R Parallel ...
+   Result: 49.5 avg age
+   Time: 1102.291 ms
+
+📊 R PERFORMANCE COMPARISON:
+====================================================================== 
+Algorithm            Avg Age    Time (ms)    Speedup   
+====================================================================== 
+R Vectorized         49.5       2.592        Infx      
+R Builtin Sum        49.5       2.328        Infx      
+R ColSums            49.5       2.205        Infx      
+R Loop (slow)        49.5       17.133       Infx      
+R Apply              49.5       5.463        Infx      
+R Reduce             49.5       275.548      Infx      
+R data.table         49.5       4.227        Infx      
+R Rcpp (C++)         49.5       921.357      Infx      
+R Parallel           49.5       1102.291     Infx      
+====================================================================== 
+
+🏆⚡ АБСОЛЮТНЫЙ ПОБЕДИТЕЛЬ R: R ColSums 
+    Время: 2.205 ms
+    Ускорение: Inf x
+
+🔬 COMPARISON WITH OTHER LANGUAGES:
+Rust QUANTUM: ~44.5µs (1M elements)
+C++ ULTRA: ~86µs (1M elements)
+Python SoA: ~2.58ms (1M elements)
+R Best: 2.2 ms ( 1e+06 elements)
+
+💾 Results written to: blazing_results_r.txt 
+🎯 R OPTIMIZATION SUMMARY:
+✅ Vectorized operations: R's natural strength
+✅ Built-in sum(): Highly optimized C implementation
+✅ Matrix operations: ColSums for numerical data
+✅ data.table: High-performance data manipulation
+✅ Rcpp: C++ integration for maximum speed
+✅ Parallel computing: Built-in cluster support
+❌ Loops: Generally slow in R (use vectorization!)
+
+💥 R BENCHMARK COMPLETE! 💥
+📊 R показывает отличные результаты для статистических вычислений! 📊⚡
+
+🚀 For BLAZING FAST R performance, consider:
+   • data.table: install.packages('data.table')
+   • Rcpp: install.packages('Rcpp')
+   • parallel: built-in parallelization
+   • Matrix operations: use vectorization!
+ 
+=== ASSEMBLY 100000 ELEMENTS === 
+🚀⚡ ASSEMBLY-LEVEL OPTIMIZED BENCHMARK SUITE ⚡🚀
+
+📊 Testing with 100000 users...
+
+🎯 ULTRA-OPTIMIZED PERFORMANCE TESTS:
+
+🔥 Testing C Basic...
+   Result: 5847706 in 0.007 ms
+🔥 Testing Ultra Unrolled 16x...
+   Result: 5847706 in 0.015 ms
+🔥 Testing Pointer Optimized...
+   Result: 5847706 in 0.012 ms
+🔥 Testing SSE2 SIMD Optimized...
+   Result: 5847706 in 0.004 ms
+🔥 Testing EXTREME Optimized...
+   Result: 5847706 in 0.004 ms
+
+🚀 PERFORMANCE ANALYSIS:
+
+Ultra Unrolled vs Basic:  0.48x faster
+Pointer vs Basic:         0.58x faster
+SSE2 vs Basic:            1.75x faster
+EXTREME vs Basic:         1.71x faster
+
+⚡ PERFORMANCE ESTIMATES:
+C Basic:         ~0.070 ms/M elements
+Ultra Unrolled:  ~0.146 ms/M elements
+Pointer:         ~0.120 ms/M elements
+SSE2:            ~0.040 ms/M elements
+EXTREME:         ~0.041 ms/M elements
+
+🏆 CHAMPION: SSE2 with 0.004 ms
+💥 Assembly-level optimizations achieve maximum performance!
+🎯 Expected performance: < 0.1ms for 1M elements
+
+🔥 COMPARISON WITH OTHER LANGUAGES:
+Expected speedup vs standard C:   3-5x faster
+Expected speedup vs Rust:         2-4x faster
+Expected speedup vs Go:           10-20x faster
+Expected speedup vs Python:       500-1000x faster
+ 
+=== C 100000 ELEMENTS === 
+🚀⚡ C BLAZING FAST BENCHMARK SUITE ⚡🚀
+
+📊 SYSTEM INFO:
+   Compiler: Clang Clang 12.0.0
+   CPU Cores: 16
+   Threads: 4
+   AVX2 Support: No
+
+Processing 100000 users
+C provides maximum performance with manual optimization!
+
+🏗️ Creating test data...
+Data creation: 30ms
+
+🚀 Running benchmarks...
+
+📊 RESULTS:
+
+🥇 C AVX/SIMD: 0.011ms (1.0x)
+🥈 C Unrolled: 0.012ms (1.0x)
+🥉 C Pointer: 0.021ms (0.6x)
+🔸 C SoA Basic: 0.021ms (0.5x)
+🔸 C AoS Basic: 0.104ms (0.1x)
+🔸 C Threads Unrolled: 0.486ms (0.0x)
+🔸 C Threads: 0.610ms (0.0x)
+
+🎯 C PERFORMANCE INSIGHTS:
+   • Manual memory management eliminates GC overhead
+   • SIMD intrinsics provide vectorized operations
+   • Loop unrolling reduces branching overhead
+   • pthread provides efficient multithreading
+   • Cache-aligned data improves memory access
+   • Compiler optimizations (-O3) are crucial
+
+✅ Verification: All results match!
+   Expected sum: 4950000
+   Actual results: 4950000
+
+🏆 C CHAMPION: C AVX/SIMD
+⚡ Best time: 0.011ms
+🚀 Elements per second: 8771929856
+
+📝 Results saved to blazing_results_c.txt
+
+🎉 C benchmark complete!
+ 
+=== RUST 100000 ELEMENTS === 
+User size: 40
+User alignment: 8
+Average age: 49
+Elapsed time: 91.0809ms
+Average age soa: 49
+Elapsed time soa: 2.6514ms
+
+🔥 SIMD BLAZING FAST VERSION 🔥
+Average age SIMD: 49
+Elapsed time SIMD: 11.52ms
+
+⚡ ULTRA FAST UNSAFE VERSION ⚡
+Average age ULTRA: 49
+Elapsed time ULTRA: 8.6788ms
+
+🌟 PARALLEL ULTRA VERSION 🌟
+Average age PARALLEL: 49
+Elapsed time PARALLEL: 2.2755ms
+
+👑 GODLIKE VERSION (32-byte chunks) 👑
+Average age GODLIKE: 49
+Elapsed time GODLIKE: 5.4448ms
+
+🌌 QUANTUM VERSION (optimized for small arrays) 🌌
+Average age QUANTUM: 49
+Elapsed time QUANTUM: 5.3762ms
+
+🔥 ASSEMBLY VERSION (inline asm) 🔥
+Average age ASSEMBLY: 49
+Elapsed time ASSEMBLY: 32.8921ms
+
+🌊 AVX2 FIXED VERSION (256-bit SIMD) 🌊
+Average age AVX2: 49
+Elapsed time AVX2: 106.9074ms
+
+⚡🌌⚡ LUDICROUS SPEED VERSION (64-byte chunks) ⚡🌌⚡
+Average age LUDICROUS: 49
+Elapsed time LUDICROUS: 9.2846ms
+
+🚀⚡🚀 PARALLEL LUDICROUS VERSION (beyond time itself) 🚀⚡🚀
+Average age PARALLEL LUDICROUS: 49
+Elapsed time PARALLEL LUDICROUS: 2.3299ms
+
+🔥🔥🔥 JIT FIXED VERSION (pseudo-JIT) 🔥🔥🔥
+Average age JIT FIXED: 49
+Elapsed time JIT FIXED: 11.4475ms
+
+📊 PERFORMANCE COMPARISON:
+Rust AoS (Array of Structs): 91.0809ms
+Rust SoA (Struct of Arrays): 2.6514ms
+Rust SIMD (Vectorized):      11.52ms
+Rust ULTRA (Unsafe):         8.6788ms
+Rust PARALLEL (Multi-core):  2.2755ms
+Rust GODLIKE (32-byte):       5.4448ms
+Rust QUANTUM (Optimized):    5.3762ms
+Rust ASSEMBLY (inline asm):  32.8921ms
+Rust AVX2 FIXED (256-bit):   106.9074ms
+Rust LUDICROUS (64-byte):     9.2846ms
+Rust PAR_LUDICROUS (beyond):  2.3299ms
+Rust JIT FIXED (pseudo):     11.4475ms
+
+🚄 НЕВЫНОСИМЫЕ УСКОРЕНИЯ vs AoS:
+SIMD:          8x faster
+ULTRA:         10x faster
+PARALLEL:      40x faster
+GODLIKE:       17x faster
+QUANTUM:       17x faster
+ASSEMBLY:      3x faster
+AVX2 FIXED:    1x faster
+LUDICROUS:     10x faster
+PAR_LUDICROUS: 39x faster
+JIT FIXED:     8x faster
+
+🏆🚀⚡ АБСОЛЮТНЫЙ ПОБЕДИТЕЛЬ: 🌟 PARALLEL with 2.2755ms! ⚡🚀🏆
+💥 НЕВЫНОСИМОЕ УСКОРЕНИЕ: 40x быстрее базовой реализации!
+
+🚀💾 BLAZING FAST I/O DEMONSTRATION 💾🚀
+
+⚡📊 ULTRA FAST PRINT (zero allocations):
+PARALLEL: 49 - 2ms (40x faster)
+SoA: 49 - 2ms (34x faster)
+PAR_LUDICROUS: 49 - 2ms (39x faster)
+Ultra fast print time: 6.7µs
+
+🚀💾 BUFFERED FILE WRITE:
+Memory-mapped file write time: 403.3µs
+
+🚀📁 PARALLEL FILE WRITE:
+Parallel file write time: 1.4455ms
+
+🎯 I/O OPTIMIZATION SUMMARY:
+• Zero-allocation printing: избегает malloc/free
+• Large buffers (64KB-1MB): минимизирует системные вызовы
+• Memory-mapped I/O: bypass kernel buffers
+• Parallel file writes: использует все ядра для I/O
+• Stack-allocated formatting: никаких String аллокаций
+
+🚀 Generated files: blazing_results.txt, blazing_results_0-3.txt
+💥 I/O теперь тоже работает с LUDICROUS SPEED! 💥
+ 
+=== GO 100000 ELEMENTS === 
+🚀⚡ GO BLAZING FAST BENCHMARK SUITE ⚡🚀
+
+📊 SYSTEM INFO:
+   Go Version: go1.25.0
+   Platform: windows/amd64
+   CPU Cores: 16
+   Goroutines: 1
+
+Processing 1000000 users
+Go is optimized for concurrency and simplicity!
+
+🏗️ Creating test data...
+Data creation: 136ms
+
+🚀 Running benchmarks...
+
+📊 RESULTS:
+
+🥇 Go SoA Basic: 0.000ms (NaNx)
+🥈 Go Unrolled: 0.000ms (NaNx)
+🥉 Go Unsafe: 0.000ms (NaNx)
+🔸 Go Goroutines: 0.000ms (NaNx)
+🔸 Go Goroutines Unrolled: 0.000ms (NaNx)
+🔸 Go Channels: 0.000ms (NaNx)
+🔸 Go AoS Basic: 6.481ms (0.0x)
+
+🎯 GO PERFORMANCE INSIGHTS:
+   • Goroutines provide excellent concurrency with low overhead
+   • Loop unrolling improves performance on predictable data
+   • Unsafe operations can provide C-like performance
+   • Channels enable elegant CSP-style communication
+   • Static compilation ensures consistent performance
+   • Garbage collector is optimized for low latency
+
+✅ Verification: All results match!
+   Expected sum: 49500000
+   Actual results: {49500000}
+
+🏆 GO CHAMPION: Go SoA Basic
+⚡ Best time: 0.000ms
+🚀 Elements per second: +Inf
+
+📝 Results saved to blazing_results_go.txt
+
+🎉 Go benchmark complete!
+ 
+=== PYTHON 100000 ELEMENTS === 
+Traceback (most recent call last):
+  File "C:\Users\User\Desktop\blazing\blazing_python_main.py", line 28, in <module>
+    import numpy as np
+ModuleNotFoundError: No module named 'numpy'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\User\Desktop\blazing\blazing_python_main.py", line 32, in <module>
+    print("\u274c NumPy not available")
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1251.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 0: character maps to <undefined>
+ 
+=== DART 100000 ELEMENTS === 
+🚀⚡ DART BLAZING FAST BENCHMARK SUITE ⚡🚀
+
+📊 SYSTEM INFO:
+   Dart Version: 3.8.1 (stable) (Wed May 28 00:47:25 2025 -0700) on "windows_x64"
+   Platform: windows
+   CPU Cores: 16
+   Executable: C:\Users\User\Documents\flutter\bin\cache\dart-sdk\bin\dart.exe
+
+Processing 1000000 users
+Dart is optimized for both AOT and JIT compilation!
+
+🏗️ Creating test data...
+Data creation: 285ms
+
+🚀 Running benchmarks...
+
+📊 RESULTS:
+
+🥇 Dart Parallel: 1.034ms (1.0x)
+🥈 Dart Unrolled: 1.321ms (0.8x)
+🥉 Dart Typed Data: 1.351ms (0.8x)
+🔸 Dart SoA Basic: 1.357ms (0.8x)
+🔸 Dart AoS Functional: 5.022ms (0.2x)
+🔸 Dart AoS Basic: 5.228ms (0.2x)
+
+🎯 DART PERFORMANCE INSIGHTS:
+   • AOT compilation provides consistent performance
+   • Typed data (Uint8List) is faster than generic lists
+   • Loop unrolling helps with predictable access patterns
+   • Isolates have overhead but scale well for large datasets
+   • Sound null safety enables aggressive optimizations
+
+✅ Verification: All results match!
+   Expected sum: 49500000
+   Actual results: {49500000}
+
+🏆 DART CHAMPION: Dart Parallel
+⚡ Best time: 1.034ms
+🚀 Elements per second: 967117988
+
+📝 Results saved to blazing_results_dart.txt
+
+🎉 Dart benchmark complete!
+ 
+=== R 100000 ELEMENTS === 
+🚀⚡ R BLAZING FAST BENCHMARK SUITE ⚡🚀
+
+📊 SYSTEM INFO:
+   R Version: R version 4.5.1 (2025-06-13 ucrt) 
+   Platform: x86_64-w64-mingw32 
+   CPU Cores: 16 
+   Memory: Inf GB limit
+Warning message:
+'memory.limit()' is no longer supported 
+
+Processing 1e+06 users
+R is optimized for vectorized operations!
+
+📊 Creating test data...
+✅ Test data created in 614.72 ms
+
+🚀 Running R benchmarks...
+
+🔥 Testing R DataFrame ...
+   ❌ Error: $ operator is invalid for atomic vectors 
+
+🔥 Testing R Vectorized ...
+   Result: 49.5 avg age
+   Time: 2.524 ms
+
+🔥 Testing R Builtin Sum ...
+   Result: 49.5 avg age
+   Time: 2.218 ms
+
+🔥 Testing R ColSums ...
+   Result: 49.5 avg age
+   Time: 2.226 ms
+
+🔥 Testing R Loop (slow) ...
+   Result: 49.5 avg age
+   Time: 16.79 ms
+
+🔥 Testing R Apply ...
+   Result: 49.5 avg age
+   Time: 5.04 ms
+
+🔥 Testing R Reduce ...
+   Result: 49.5 avg age
+   Time: 269.586 ms
+
+🔥 Testing R data.table ...
+   Result: 49.5 avg age
+   Time: 4.828 ms
+
+🔥 Testing R Rcpp (C++) ...
+Error in if (nzchar(cxx)) { : argument is of length zero
+Calls: <Anonymous> -> .shlib_internal
+Execution halted
+
+WARNING: The tools required to build C++ code for R were not found.
+
+Please download and install the appropriate version of Rtools:
+
+http://cran.r-project.org/bin/windows/Rtools/
+
+Error in if (nzchar(cxx)) { : argument is of length zero
+Calls: <Anonymous> -> .shlib_internal
+Execution halted
+
+WARNING: The tools required to build C++ code for R were not found.
+
+Please download and install the appropriate version of Rtools:
+
+http://cran.r-project.org/bin/windows/Rtools/
+
+   Result: 49.5 avg age
+   Time: 899.319 ms
+
+🔥 Testing R Parallel ...
+   Result: 49.5 avg age
+   Time: 1116.675 ms
+
+📊 R PERFORMANCE COMPARISON:
+====================================================================== 
+Algorithm            Avg Age    Time (ms)    Speedup   
+====================================================================== 
+R Vectorized         49.5       2.524        Infx      
+R Builtin Sum        49.5       2.218        Infx      
+R ColSums            49.5       2.226        Infx      
+R Loop (slow)        49.5       16.790       Infx      
+R Apply              49.5       5.040        Infx      
+R Reduce             49.5       269.586      Infx      
+R data.table         49.5       4.828        Infx      
+R Rcpp (C++)         49.5       899.319      Infx      
+R Parallel           49.5       1116.675     Infx      
+====================================================================== 
+
+🏆⚡ АБСОЛЮТНЫЙ ПОБЕДИТЕЛЬ R: R Builtin Sum 
+    Время: 2.218 ms
+    Ускорение: Inf x
+
+🔬 COMPARISON WITH OTHER LANGUAGES:
+Rust QUANTUM: ~44.5µs (1M elements)
+C++ ULTRA: ~86µs (1M elements)
+Python SoA: ~2.58ms (1M elements)
+R Best: 2.22 ms ( 1e+06 elements)
+
+💾 Results written to: blazing_results_r.txt 
+🎯 R OPTIMIZATION SUMMARY:
+✅ Vectorized operations: R's natural strength
+✅ Built-in sum(): Highly optimized C implementation
+✅ Matrix operations: ColSums for numerical data
+✅ data.table: High-performance data manipulation
+✅ Rcpp: C++ integration for maximum speed
+✅ Parallel computing: Built-in cluster support
+❌ Loops: Generally slow in R (use vectorization!)
+
+💥 R BENCHMARK COMPLETE! 💥
+📊 R показывает отличные результаты для статистических вычислений! 📊⚡
+
+🚀 For BLAZING FAST R performance, consider:
+   • data.table: install.packages('data.table')
+   • Rcpp: install.packages('Rcpp')
+   • parallel: built-in parallelization
+   • Matrix operations: use vectorization!
+ 
+=== ASSEMBLY 1000000 ELEMENTS === 
+🚀⚡ ASSEMBLY-LEVEL OPTIMIZED BENCHMARK SUITE ⚡🚀
+
+📊 Testing with 1000000 users...
+
+🎯 ULTRA-OPTIMIZED PERFORMANCE TESTS:
+
+🔥 Testing C Basic...
+   Result: 58476486 in 0.081 ms
+🔥 Testing Ultra Unrolled 16x...
+   Result: 58476486 in 0.149 ms
+🔥 Testing Pointer Optimized...
+   Result: 58476486 in 0.083 ms
+🔥 Testing SSE2 SIMD Optimized...
+   Result: 58476486 in 0.048 ms
+🔥 Testing EXTREME Optimized...
+   Result: 58476486 in 0.045 ms
+
+🚀 PERFORMANCE ANALYSIS:
+
+Ultra Unrolled vs Basic:  0.55x faster
+Pointer vs Basic:         0.98x faster
+SSE2 vs Basic:            1.70x faster
+EXTREME vs Basic:         1.82x faster
+
+⚡ PERFORMANCE ESTIMATES:
+C Basic:         ~0.081 ms/M elements
+Ultra Unrolled:  ~0.149 ms/M elements
+Pointer:         ~0.083 ms/M elements
+SSE2:            ~0.048 ms/M elements
+EXTREME:         ~0.045 ms/M elements
+
+🏆 CHAMPION: EXTREME with 0.045 ms
+💥 Assembly-level optimizations achieve maximum performance!
+🎯 Expected performance: < 0.1ms for 1M elements
+
+🔥 COMPARISON WITH OTHER LANGUAGES:
+Expected speedup vs standard C:   3-5x faster
+Expected speedup vs Rust:         2-4x faster
+Expected speedup vs Go:           10-20x faster
+Expected speedup vs Python:       500-1000x faster
+ 
+=== C 1000000 ELEMENTS === 
+🚀⚡ C BLAZING FAST BENCHMARK SUITE ⚡🚀
+
+📊 SYSTEM INFO:
+   Compiler: Clang Clang 12.0.0
+   CPU Cores: 16
+   Threads: 4
+   AVX2 Support: No
+
+Processing 1000000 users
+C provides maximum performance with manual optimization!
+
+🏗️ Creating test data...
+Data creation: 311ms
+
+🚀 Running benchmarks...
+
+📊 RESULTS:
+
+🥇 C Unrolled: 0.113ms (1.0x)
+🥈 C AVX/SIMD: 0.116ms (1.0x)
+🥉 C Pointer: 0.208ms (0.5x)
+🔸 C SoA Basic: 0.209ms (0.5x)
+🔸 C Threads Unrolled: 0.572ms (0.2x)
+🔸 C Threads: 0.721ms (0.2x)
+🔸 C AoS Basic: 0.967ms (0.1x)
+
+🎯 C PERFORMANCE INSIGHTS:
+   • Manual memory management eliminates GC overhead
+   • SIMD intrinsics provide vectorized operations
+   • Loop unrolling reduces branching overhead
+   • pthread provides efficient multithreading
+   • Cache-aligned data improves memory access
+   • Compiler optimizations (-O3) are crucial
+
+✅ Verification: All results match!
+   Expected sum: 49500000
+   Actual results: 49500000
+
+🏆 C CHAMPION: C Unrolled
+⚡ Best time: 0.113ms
+🚀 Elements per second: 8818342149
+
+📝 Results saved to blazing_results_c.txt
+
+🎉 C benchmark complete!
+ 
+=== RUST 1000000 ELEMENTS === 
+User size: 40
+User alignment: 8
+Average age: 49
+Elapsed time: 92.5725ms
+Average age soa: 49
+Elapsed time soa: 2.9434ms
+
+🔥 SIMD BLAZING FAST VERSION 🔥
+Average age SIMD: 49
+Elapsed time SIMD: 11.2912ms
+
+⚡ ULTRA FAST UNSAFE VERSION ⚡
+Average age ULTRA: 49
+Elapsed time ULTRA: 8.8642ms
+
+🌟 PARALLEL ULTRA VERSION 🌟
+Average age PARALLEL: 49
+Elapsed time PARALLEL: 2.7582ms
+
+👑 GODLIKE VERSION (32-byte chunks) 👑
+Average age GODLIKE: 49
+Elapsed time GODLIKE: 5.198ms
+
+🌌 QUANTUM VERSION (optimized for small arrays) 🌌
+Average age QUANTUM: 49
+Elapsed time QUANTUM: 5.5177ms
+
+🔥 ASSEMBLY VERSION (inline asm) 🔥
+Average age ASSEMBLY: 49
+Elapsed time ASSEMBLY: 32.9616ms
+
+🌊 AVX2 FIXED VERSION (256-bit SIMD) 🌊
+Average age AVX2: 49
+Elapsed time AVX2: 106.8995ms
+
+⚡🌌⚡ LUDICROUS SPEED VERSION (64-byte chunks) ⚡🌌⚡
+Average age LUDICROUS: 49
+Elapsed time LUDICROUS: 9.2724ms
+
+🚀⚡🚀 PARALLEL LUDICROUS VERSION (beyond time itself) 🚀⚡🚀
+Average age PARALLEL LUDICROUS: 49
+Elapsed time PARALLEL LUDICROUS: 2.3051ms
+
+🔥🔥🔥 JIT FIXED VERSION (pseudo-JIT) 🔥🔥🔥
+Average age JIT FIXED: 49
+Elapsed time JIT FIXED: 11.1294ms
+
+📊 PERFORMANCE COMPARISON:
+Rust AoS (Array of Structs): 92.5725ms
+Rust SoA (Struct of Arrays): 2.9434ms
+Rust SIMD (Vectorized):      11.2912ms
+Rust ULTRA (Unsafe):         8.8642ms
+Rust PARALLEL (Multi-core):  2.7582ms
+Rust GODLIKE (32-byte):       5.198ms
+Rust QUANTUM (Optimized):    5.5177ms
+Rust ASSEMBLY (inline asm):  32.9616ms
+Rust AVX2 FIXED (256-bit):   106.8995ms
+Rust LUDICROUS (64-byte):     9.2724ms
+Rust PAR_LUDICROUS (beyond):  2.3051ms
+Rust JIT FIXED (pseudo):     11.1294ms
+
+🚄 НЕВЫНОСИМЫЕ УСКОРЕНИЯ vs AoS:
+SIMD:          8x faster
+ULTRA:         10x faster
+PARALLEL:      34x faster
+GODLIKE:       18x faster
+QUANTUM:       17x faster
+ASSEMBLY:      3x faster
+AVX2 FIXED:    1x faster
+LUDICROUS:     10x faster
+PAR_LUDICROUS: 40x faster
+JIT FIXED:     8x faster
+
+🏆🚀⚡ АБСОЛЮТНЫЙ ПОБЕДИТЕЛЬ: 🚀⚡🚀 PARALLEL LUDICROUS with 2.3051ms! ⚡🚀🏆
+💥 НЕВЫНОСИМОЕ УСКОРЕНИЕ: 40x быстрее базовой реализации!
+
+🚀💾 BLAZING FAST I/O DEMONSTRATION 💾🚀
+
+⚡📊 ULTRA FAST PRINT (zero allocations):
+PARALLEL: 49 - 2ms (33x faster)
+SoA: 49 - 2ms (31x faster)
+PAR_LUDICROUS: 49 - 2ms (40x faster)
+Ultra fast print time: 8.2µs
+
+🚀💾 BUFFERED FILE WRITE:
+Memory-mapped file write time: 475.2µs
+
+🚀📁 PARALLEL FILE WRITE:
+Parallel file write time: 999.6µs
+
+🎯 I/O OPTIMIZATION SUMMARY:
+• Zero-allocation printing: избегает malloc/free
+• Large buffers (64KB-1MB): минимизирует системные вызовы
+• Memory-mapped I/O: bypass kernel buffers
+• Parallel file writes: использует все ядра для I/O
+• Stack-allocated formatting: никаких String аллокаций
+
+🚀 Generated files: blazing_results.txt, blazing_results_0-3.txt
+💥 I/O теперь тоже работает с LUDICROUS SPEED! 💥
+ 
+=== GO 1000000 ELEMENTS === 
+🚀⚡ GO BLAZING FAST BENCHMARK SUITE ⚡🚀
+
+📊 SYSTEM INFO:
+   Go Version: go1.25.0
+   Platform: windows/amd64
+   CPU Cores: 16
+   Goroutines: 1
+
+Processing 1000000 users
+Go is optimized for concurrency and simplicity!
+
+🏗️ Creating test data...
+Data creation: 139ms
+
+🚀 Running benchmarks...
+
+📊 RESULTS:
+
+🥇 Go AoS Basic: 0.000ms (NaNx)
+🥈 Go SoA Basic: 0.000ms (NaNx)
+🥉 Go Unrolled: 0.000ms (NaNx)
+🔸 Go Unsafe: 0.000ms (NaNx)
+🔸 Go Goroutines: 0.000ms (NaNx)
+🔸 Go Goroutines Unrolled: 0.000ms (NaNx)
+🔸 Go Channels: 0.000ms (NaNx)
+
+🎯 GO PERFORMANCE INSIGHTS:
+   • Goroutines provide excellent concurrency with low overhead
+   • Loop unrolling improves performance on predictable data
+   • Unsafe operations can provide C-like performance
+   • Channels enable elegant CSP-style communication
+   • Static compilation ensures consistent performance
+   • Garbage collector is optimized for low latency
+
+✅ Verification: All results match!
+   Expected sum: 49500000
+   Actual results: {49500000}
+
+🏆 GO CHAMPION: Go AoS Basic
+⚡ Best time: 0.000ms
+🚀 Elements per second: +Inf
+
+📝 Results saved to blazing_results_go.txt
+
+🎉 Go benchmark complete!
+ 
+=== PYTHON 1000000 ELEMENTS === 
+Traceback (most recent call last):
+  File "C:\Users\User\Desktop\blazing\blazing_python_main.py", line 28, in <module>
+    import numpy as np
+ModuleNotFoundError: No module named 'numpy'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\User\Desktop\blazing\blazing_python_main.py", line 32, in <module>
+    print("\u274c NumPy not available")
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1251.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 0: character maps to <undefined>
+ 
+=== DART 1000000 ELEMENTS === 
+🚀⚡ DART BLAZING FAST BENCHMARK SUITE ⚡🚀
+
+📊 SYSTEM INFO:
+   Dart Version: 3.8.1 (stable) (Wed May 28 00:47:25 2025 -0700) on "windows_x64"
+   Platform: windows
+   CPU Cores: 16
+   Executable: C:\Users\User\Documents\flutter\bin\cache\dart-sdk\bin\dart.exe
+
+Processing 1000000 users
+Dart is optimized for both AOT and JIT compilation!
+
+🏗️ Creating test data...
+Data creation: 397ms
+
+🚀 Running benchmarks...
+
+📊 RESULTS:
+
+🥇 Dart Parallel: 1.020ms (1.0x)
+🥈 Dart SoA Basic: 1.336ms (0.8x)
+🥉 Dart Typed Data: 1.378ms (0.7x)
+🔸 Dart Unrolled: 1.895ms (0.5x)
+🔸 Dart AoS Functional: 5.343ms (0.2x)
+🔸 Dart AoS Basic: 5.565ms (0.2x)
+
+🎯 DART PERFORMANCE INSIGHTS:
+   • AOT compilation provides consistent performance
+   • Typed data (Uint8List) is faster than generic lists
+   • Loop unrolling helps with predictable access patterns
+   • Isolates have overhead but scale well for large datasets
+   • Sound null safety enables aggressive optimizations
+
+✅ Verification: All results match!
+   Expected sum: 49500000
+   Actual results: {49500000}
+
+🏆 DART CHAMPION: Dart Parallel
+⚡ Best time: 1.020ms
+🚀 Elements per second: 980392157
+
+📝 Results saved to blazing_results_dart.txt
+
+🎉 Dart benchmark complete!
+ 
+=== R 1000000 ELEMENTS === 
+🚀⚡ R BLAZING FAST BENCHMARK SUITE ⚡🚀
+
+📊 SYSTEM INFO:
+   R Version: R version 4.5.1 (2025-06-13 ucrt) 
+   Platform: x86_64-w64-mingw32 
+   CPU Cores: 16 
+   Memory: Inf GB limit
+Warning message:
+'memory.limit()' is no longer supported 
+
+Processing 1e+06 users
+R is optimized for vectorized operations!
+
+📊 Creating test data...
+✅ Test data created in 616.69 ms
+
+🚀 Running R benchmarks...
+
+🔥 Testing R DataFrame ...
+   ❌ Error: $ operator is invalid for atomic vectors 
+
+🔥 Testing R Vectorized ...
+   Result: 49.5 avg age
+   Time: 2.132 ms
+
+🔥 Testing R Builtin Sum ...
+   Result: 49.5 avg age
+   Time: 2.298 ms
+
+🔥 Testing R ColSums ...
+   Result: 49.5 avg age
+   Time: 2.211 ms
+
+🔥 Testing R Loop (slow) ...
+   Result: 49.5 avg age
+   Time: 16.073 ms
+
+🔥 Testing R Apply ...
+   Result: 49.5 avg age
+   Time: 4.819 ms
+
+🔥 Testing R Reduce ...
+   Result: 49.5 avg age
+   Time: 267.543 ms
+
+🔥 Testing R data.table ...
+   Result: 49.5 avg age
+   Time: 5.465 ms
+
+🔥 Testing R Rcpp (C++) ...
+Error in if (nzchar(cxx)) { : argument is of length zero
+Calls: <Anonymous> -> .shlib_internal
+Execution halted
+
+WARNING: The tools required to build C++ code for R were not found.
+
+Please download and install the appropriate version of Rtools:
+
+http://cran.r-project.org/bin/windows/Rtools/
+
+Error in if (nzchar(cxx)) { : argument is of length zero
+Calls: <Anonymous> -> .shlib_internal
+Execution halted
+
+WARNING: The tools required to build C++ code for R were not found.
+
+Please download and install the appropriate version of Rtools:
+
+http://cran.r-project.org/bin/windows/Rtools/
+
+   Result: 49.5 avg age
+   Time: 912.58 ms
+
+🔥 Testing R Parallel ...
+   Result: 49.5 avg age
+   Time: 1090.241 ms
+
+📊 R PERFORMANCE COMPARISON:
+====================================================================== 
+Algorithm            Avg Age    Time (ms)    Speedup   
+====================================================================== 
+R Vectorized         49.5       2.132        Infx      
+R Builtin Sum        49.5       2.298        Infx      
+R ColSums            49.5       2.211        Infx      
+R Loop (slow)        49.5       16.073       Infx      
+R Apply              49.5       4.819        Infx      
+R Reduce             49.5       267.543      Infx      
+R data.table         49.5       5.465        Infx      
+R Rcpp (C++)         49.5       912.580      Infx      
+R Parallel           49.5       1090.241     Infx      
+====================================================================== 
+
+🏆⚡ АБСОЛЮТНЫЙ ПОБЕДИТЕЛЬ R: R Vectorized 
+    Время: 2.132 ms
+    Ускорение: Inf x
+
+🔬 COMPARISON WITH OTHER LANGUAGES:
+Rust QUANTUM: ~44.5µs (1M elements)
+C++ ULTRA: ~86µs (1M elements)
+Python SoA: ~2.58ms (1M elements)
+R Best: 2.13 ms ( 1e+06 elements)
+
+💾 Results written to: blazing_results_r.txt 
+🎯 R OPTIMIZATION SUMMARY:
+✅ Vectorized operations: R's natural strength
+✅ Built-in sum(): Highly optimized C implementation
+✅ Matrix operations: ColSums for numerical data
+✅ data.table: High-performance data manipulation
+✅ Rcpp: C++ integration for maximum speed
+✅ Parallel computing: Built-in cluster support
+❌ Loops: Generally slow in R (use vectorization!)
+
+💥 R BENCHMARK COMPLETE! 💥
+📊 R показывает отличные результаты для статистических вычислений! 📊⚡
+
+🚀 For BLAZING FAST R performance, consider:
+   • data.table: install.packages('data.table')
+   • Rcpp: install.packages('Rcpp')
+   • parallel: built-in parallelization
+   • Matrix operations: use vectorization!
+ 
+=== ASSEMBLY 10000000 ELEMENTS === 
+🚀⚡ ASSEMBLY-LEVEL OPTIMIZED BENCHMARK SUITE ⚡🚀
+
+📊 Testing with 10000000 users...
+
+🎯 ULTRA-OPTIMIZED PERFORMANCE TESTS:
+
+🔥 Testing C Basic...
+   Result: 584764403 in 0.709 ms
+🔥 Testing Ultra Unrolled 16x...
+   Result: 584764403 in 1.497 ms
+🔥 Testing Pointer Optimized...
+   Result: 584764403 in 0.762 ms
+🔥 Testing SSE2 SIMD Optimized...
+   Result: 584764403 in 0.402 ms
+🔥 Testing EXTREME Optimized...
+   Result: 584764403 in 0.430 ms
+
+🚀 PERFORMANCE ANALYSIS:
+
+Ultra Unrolled vs Basic:  0.47x faster
+Pointer vs Basic:         0.93x faster
+SSE2 vs Basic:            1.76x faster
+EXTREME vs Basic:         1.65x faster
+
+⚡ PERFORMANCE ESTIMATES:
+C Basic:         ~0.071 ms/M elements
+Ultra Unrolled:  ~0.150 ms/M elements
+Pointer:         ~0.076 ms/M elements
+SSE2:            ~0.040 ms/M elements
+EXTREME:         ~0.043 ms/M elements
+
+🏆 CHAMPION: SSE2 with 0.402 ms
+💥 Assembly-level optimizations achieve maximum performance!
+🎯 Expected performance: < 0.1ms for 1M elements
+
+🔥 COMPARISON WITH OTHER LANGUAGES:
+Expected speedup vs standard C:   3-5x faster
+Expected speedup vs Rust:         2-4x faster
+Expected speedup vs Go:           10-20x faster
+Expected speedup vs Python:       500-1000x faster
+ 
+=== C 10000000 ELEMENTS === 
+🚀⚡ C BLAZING FAST BENCHMARK SUITE ⚡🚀
+
+📊 SYSTEM INFO:
+   Compiler: Clang Clang 12.0.0
+   CPU Cores: 16
+   Threads: 4
+   AVX2 Support: No
+
+Processing 10000000 users
+C provides maximum performance with manual optimization!
+
+🏗️ Creating test data...
+Data creation: 3124ms
+
+🚀 Running benchmarks...
+
+📊 RESULTS:
+
+🥇 C Threads Unrolled: 0.720ms (1.0x)
+🥈 C Threads: 1.068ms (0.7x)
+🥉 C Unrolled: 1.140ms (0.6x)
+🔸 C AVX/SIMD: 1.151ms (0.6x)
+🔸 C SoA Basic: 2.080ms (0.3x)
+🔸 C Pointer: 2.267ms (0.3x)
+🔸 C AoS Basic: 10.448ms (0.1x)
+
+🎯 C PERFORMANCE INSIGHTS:
+   • Manual memory management eliminates GC overhead
+   • SIMD intrinsics provide vectorized operations
+   • Loop unrolling reduces branching overhead
+   • pthread provides efficient multithreading
+   • Cache-aligned data improves memory access
+   • Compiler optimizations (-O3) are crucial
+
+✅ Verification: All results match!
+   Expected sum: 495000000
+   Actual results: 495000000
+
+🏆 C CHAMPION: C Threads Unrolled
+⚡ Best time: 0.720ms
+🚀 Elements per second: 13888888889
+
+📝 Results saved to blazing_results_c.txt
+
+🎉 C benchmark complete!
+ 
+=== RUST 10000000 ELEMENTS === 
+User size: 40
+User alignment: 8
+Average age: 49
+Elapsed time: 86.0127ms
+Average age soa: 49
+Elapsed time soa: 2.7253ms
+
+🔥 SIMD BLAZING FAST VERSION 🔥
+Average age SIMD: 49
+Elapsed time SIMD: 11.2749ms
+
+⚡ ULTRA FAST UNSAFE VERSION ⚡
+Average age ULTRA: 49
+Elapsed time ULTRA: 8.8552ms
+
+🌟 PARALLEL ULTRA VERSION 🌟
+Average age PARALLEL: 49
+Elapsed time PARALLEL: 2.5467ms
+
+👑 GODLIKE VERSION (32-byte chunks) 👑
+Average age GODLIKE: 49
+Elapsed time GODLIKE: 4.9964ms
+
+🌌 QUANTUM VERSION (optimized for small arrays) 🌌
+Average age QUANTUM: 49
+Elapsed time QUANTUM: 4.9617ms
+
+🔥 ASSEMBLY VERSION (inline asm) 🔥
+Average age ASSEMBLY: 49
+Elapsed time ASSEMBLY: 32.2856ms
+
+🌊 AVX2 FIXED VERSION (256-bit SIMD) 🌊
+Average age AVX2: 49
+Elapsed time AVX2: 105.0408ms
+
+⚡🌌⚡ LUDICROUS SPEED VERSION (64-byte chunks) ⚡🌌⚡
+Average age LUDICROUS: 49
+Elapsed time LUDICROUS: 10.54ms
+
+🚀⚡🚀 PARALLEL LUDICROUS VERSION (beyond time itself) 🚀⚡🚀
+Average age PARALLEL LUDICROUS: 49
+Elapsed time PARALLEL LUDICROUS: 2.2349ms
+
+🔥🔥🔥 JIT FIXED VERSION (pseudo-JIT) 🔥🔥🔥
+Average age JIT FIXED: 49
+Elapsed time JIT FIXED: 11.454ms
+
+📊 PERFORMANCE COMPARISON:
+Rust AoS (Array of Structs): 86.0127ms
+Rust SoA (Struct of Arrays): 2.7253ms
+Rust SIMD (Vectorized):      11.2749ms
+Rust ULTRA (Unsafe):         8.8552ms
+Rust PARALLEL (Multi-core):  2.5467ms
+Rust GODLIKE (32-byte):       4.9964ms
+Rust QUANTUM (Optimized):    4.9617ms
+Rust ASSEMBLY (inline asm):  32.2856ms
+Rust AVX2 FIXED (256-bit):   105.0408ms
+Rust LUDICROUS (64-byte):     10.54ms
+Rust PAR_LUDICROUS (beyond):  2.2349ms
+Rust JIT FIXED (pseudo):     11.454ms
+
+🚄 НЕВЫНОСИМЫЕ УСКОРЕНИЯ vs AoS:
+SIMD:          8x faster
+ULTRA:         10x faster
+PARALLEL:      34x faster
+GODLIKE:       17x faster
+QUANTUM:       17x faster
+ASSEMBLY:      3x faster
+AVX2 FIXED:    1x faster
+LUDICROUS:     8x faster
+PAR_LUDICROUS: 38x faster
+JIT FIXED:     8x faster
+
+🏆🚀⚡ АБСОЛЮТНЫЙ ПОБЕДИТЕЛЬ: 🚀⚡🚀 PARALLEL LUDICROUS with 2.2349ms! ⚡🚀🏆
+💥 НЕВЫНОСИМОЕ УСКОРЕНИЕ: 38x быстрее базовой реализации!
+
+🚀💾 BLAZING FAST I/O DEMONSTRATION 💾🚀
+
+⚡📊 ULTRA FAST PRINT (zero allocations):
+PARALLEL: 49 - 2ms (33x faster)
+SoA: 49 - 2ms (31x faster)
+PAR_LUDICROUS: 49 - 2ms (38x faster)
+Ultra fast print time: 17µs
+
+🚀💾 BUFFERED FILE WRITE:
+Memory-mapped file write time: 589.6µs
+
+🚀📁 PARALLEL FILE WRITE:
+Parallel file write time: 1.1008ms
+
+🎯 I/O OPTIMIZATION SUMMARY:
+• Zero-allocation printing: избегает malloc/free
+• Large buffers (64KB-1MB): минимизирует системные вызовы
+• Memory-mapped I/O: bypass kernel buffers
+• Parallel file writes: использует все ядра для I/O
+• Stack-allocated formatting: никаких String аллокаций
+
+🚀 Generated files: blazing_results.txt, blazing_results_0-3.txt
+💥 I/O теперь тоже работает с LUDICROUS SPEED! 💥
+ 
+=== GO 10000000 ELEMENTS === 
+🚀⚡ GO BLAZING FAST BENCHMARK SUITE ⚡🚀
+
+📊 SYSTEM INFO:
+   Go Version: go1.25.0
+   Platform: windows/amd64
+   CPU Cores: 16
+   Goroutines: 1
+
+Processing 1000000 users
+Go is optimized for concurrency and simplicity!
+
+🏗️ Creating test data...
+Data creation: 133ms
+
+🚀 Running benchmarks...
+
+📊 RESULTS:
+
+🥇 Go SoA Basic: 0.000ms (NaNx)
+🥈 Go Unrolled: 0.000ms (NaNx)
+🥉 Go Unsafe: 0.000ms (NaNx)
+🔸 Go Goroutines Unrolled: 0.000ms (NaNx)
+🔸 Go Channels: 0.000ms (NaNx)
+🔸 Go Goroutines: 1.049ms (0.0x)
+🔸 Go AoS Basic: 7.269ms (0.0x)
+
+🎯 GO PERFORMANCE INSIGHTS:
+   • Goroutines provide excellent concurrency with low overhead
+   • Loop unrolling improves performance on predictable data
+   • Unsafe operations can provide C-like performance
+   • Channels enable elegant CSP-style communication
+   • Static compilation ensures consistent performance
+   • Garbage collector is optimized for low latency
+
+✅ Verification: All results match!
+   Expected sum: 49500000
+   Actual results: {49500000}
+
+🏆 GO CHAMPION: Go SoA Basic
+⚡ Best time: 0.000ms
+🚀 Elements per second: +Inf
+
+📝 Results saved to blazing_results_go.txt
+
+🎉 Go benchmark complete!
+ 
+=== PYTHON 10000000 ELEMENTS === 
+Traceback (most recent call last):
+  File "C:\Users\User\Desktop\blazing\blazing_python_main.py", line 28, in <module>
+    import numpy as np
+ModuleNotFoundError: No module named 'numpy'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\User\Desktop\blazing\blazing_python_main.py", line 32, in <module>
+    print("\u274c NumPy not available")
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1251.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 0: character maps to <undefined>
+ 
+=== DART 10000000 ELEMENTS === 
+🚀⚡ DART BLAZING FAST BENCHMARK SUITE ⚡🚀
+
+📊 SYSTEM INFO:
+   Dart Version: 3.8.1 (stable) (Wed May 28 00:47:25 2025 -0700) on "windows_x64"
+   Platform: windows
+   CPU Cores: 16
+   Executable: C:\Users\User\Documents\flutter\bin\cache\dart-sdk\bin\dart.exe
+
+Processing 1000000 users
+Dart is optimized for both AOT and JIT compilation!
+
+🏗️ Creating test data...
+Data creation: 291ms
+
+🚀 Running benchmarks...
+
+📊 RESULTS:
+
+🥇 Dart Parallel: 1.097ms (1.0x)
+🥈 Dart Typed Data: 1.631ms (0.7x)
+🥉 Dart SoA Basic: 2.073ms (0.5x)
+🔸 Dart Unrolled: 2.378ms (0.5x)
+🔸 Dart AoS Functional: 4.649ms (0.2x)
+🔸 Dart AoS Basic: 5.565ms (0.2x)
+
+🎯 DART PERFORMANCE INSIGHTS:
+   • AOT compilation provides consistent performance
+   • Typed data (Uint8List) is faster than generic lists
+   • Loop unrolling helps with predictable access patterns
+   • Isolates have overhead but scale well for large datasets
+   • Sound null safety enables aggressive optimizations
+
+✅ Verification: All results match!
+   Expected sum: 49500000
+   Actual results: {49500000}
+
+🏆 DART CHAMPION: Dart Parallel
+⚡ Best time: 1.097ms
+🚀 Elements per second: 911577028
+
+📝 Results saved to blazing_results_dart.txt
+
+🎉 Dart benchmark complete!
+ 
+=== R 10000000 ELEMENTS === 
+🚀⚡ R BLAZING FAST BENCHMARK SUITE ⚡🚀
+
+📊 SYSTEM INFO:
+   R Version: R version 4.5.1 (2025-06-13 ucrt) 
+   Platform: x86_64-w64-mingw32 
+   CPU Cores: 16 
+   Memory: Inf GB limit
+Warning message:
+'memory.limit()' is no longer supported 
+
+Processing 1e+06 users
+R is optimized for vectorized operations!
+
+📊 Creating test data...
+✅ Test data created in 618.83 ms
+
+🚀 Running R benchmarks...
+
+🔥 Testing R DataFrame ...
+   ❌ Error: $ operator is invalid for atomic vectors 
+
+🔥 Testing R Vectorized ...
+   Result: 49.5 avg age
+   Time: 2.121 ms
+
+🔥 Testing R Builtin Sum ...
+   Result: 49.5 avg age
+   Time: 2.292 ms
+
+🔥 Testing R ColSums ...
+   Result: 49.5 avg age
+   Time: 2.335 ms
+
+🔥 Testing R Loop (slow) ...
+   Result: 49.5 avg age
+   Time: 16.117 ms
+
+🔥 Testing R Apply ...
+   Result: 49.5 avg age
+   Time: 4.897 ms
+
+🔥 Testing R Reduce ...
+   Result: 49.5 avg age
+   Time: 282.11 ms
+
+🔥 Testing R data.table ...
+   Result: 49.5 avg age
+   Time: 4.299 ms
+
+🔥 Testing R Rcpp (C++) ...
+Error in if (nzchar(cxx)) { : argument is of length zero
+Calls: <Anonymous> -> .shlib_internal
+Execution halted
+
+WARNING: The tools required to build C++ code for R were not found.
+
+Please download and install the appropriate version of Rtools:
+
+http://cran.r-project.org/bin/windows/Rtools/
+
+Error in if (nzchar(cxx)) { : argument is of length zero
+Calls: <Anonymous> -> .shlib_internal
+Execution halted
+
+WARNING: The tools required to build C++ code for R were not found.
+
+Please download and install the appropriate version of Rtools:
+
+http://cran.r-project.org/bin/windows/Rtools/
+
+   Result: 49.5 avg age
+   Time: 897.929 ms
+
+🔥 Testing R Parallel ...
+   Result: 49.5 avg age
+   Time: 1114.899 ms
+
+📊 R PERFORMANCE COMPARISON:
+====================================================================== 
+Algorithm            Avg Age    Time (ms)    Speedup   
+====================================================================== 
+R Vectorized         49.5       2.121        Infx      
+R Builtin Sum        49.5       2.292        Infx      
+R ColSums            49.5       2.335        Infx      
+R Loop (slow)        49.5       16.117       Infx      
+R Apply              49.5       4.897        Infx      
+R Reduce             49.5       282.110      Infx      
+R data.table         49.5       4.299        Infx      
+R Rcpp (C++)         49.5       897.929      Infx      
+R Parallel           49.5       1114.899     Infx      
+====================================================================== 
+
+🏆⚡ АБСОЛЮТНЫЙ ПОБЕДИТЕЛЬ R: R Vectorized 
+    Время: 2.121 ms
+    Ускорение: Inf x
+
+🔬 COMPARISON WITH OTHER LANGUAGES:
+Rust QUANTUM: ~44.5µs (1M elements)
+C++ ULTRA: ~86µs (1M elements)
+Python SoA: ~2.58ms (1M elements)
+R Best: 2.12 ms ( 1e+06 elements)
+
+💾 Results written to: blazing_results_r.txt 
+🎯 R OPTIMIZATION SUMMARY:
+✅ Vectorized operations: R's natural strength
+✅ Built-in sum(): Highly optimized C implementation
+✅ Matrix operations: ColSums for numerical data
+✅ data.table: High-performance data manipulation
+✅ Rcpp: C++ integration for maximum speed
+✅ Parallel computing: Built-in cluster support
+❌ Loops: Generally slow in R (use vectorization!)
+
+💥 R BENCHMARK COMPLETE! 💥
+📊 R показывает отличные результаты для статистических вычислений! 📊⚡
+
+🚀 For BLAZING FAST R performance, consider:
+   • data.table: install.packages('data.table')
+   • Rcpp: install.packages('Rcpp')
+   • parallel: built-in parallelization
+   • Matrix operations: use vectorization!
+ 
