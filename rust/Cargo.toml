@@ -12,3 +12,9 @@ cranelift-codegen = "0.109"
 cranelift-native = "0.109"
 cranelift-frontend = "0.109"
 target-lexicon = "0.12"
+
+[profile.release]
+opt-level = 3
+lto = "fat"
+codegen-units = 1
+panic = "abort"
