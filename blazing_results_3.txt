@@ -1,2 +1,0 @@
-LUDICROUS: 49 - 10.54ms
-SIMD: 49 - 11.2749ms

@@ -1,1 +1,14 @@
-/target
+target/
+*.exe
+*.obj
+*.o
+*.so
+*.dylib
+*.a
+*.out
+__pycache__/
+*.pyc
+*.pyd
+*.cython*.c
+*.cython*.so
+build/

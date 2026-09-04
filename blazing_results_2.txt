@@ -1,2 +1,0 @@
-GODLIKE: 49 - 4.9964ms
-ULTRA: 49 - 8.8552ms
