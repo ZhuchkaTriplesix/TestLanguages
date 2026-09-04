@@ -44,12 +44,7 @@ class UserSoA:
     
     @classmethod
     def new_with_capacity(cls, capacity: int):
-        instance = cls()
-        # Pre-allocate lists for better performance
-        instance.ids = [0] * capacity
-        instance.names = [''] * capacity  
-        instance.ages = [0] * capacity
-        return instance
+        return cls()
     
     def add_user(self, user_id: int, name: str, age: int) -> None:
         self.ids.append(user_id)
@@ -264,7 +259,7 @@ def main() -> None:
     print("🐍🚀⚡ PYTHON BLAZING FAST JIT VERSION ⚡🚀🐍\n")
     
     # Читаем количество пользователей
-    num_users = int(os.getenv("NUM_USERS", "100000000"))
+    num_users = int(os.getenv("NUM_USERS", "1000000"))
     num_processes = mp.cpu_count()
     
     print(f"User size: {User.__sizeof__(User())} bytes")

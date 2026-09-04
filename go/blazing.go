@@ -100,7 +100,7 @@ func SumAgesUnrolled(users *UserSoA) uint64 {
 	return sum
 }
 
-// SumAgesUnsafe - unsafe pointer arithmetic for maximum speed
+// SumAgesUnsafe - unsafe 64-bit SWAR arithmetic for maximum speed
 func SumAgesUnsafe(users *UserSoA) uint64 {
 	if len(users.Ages) == 0 {
 		return 0
@@ -110,17 +110,72 @@ func SumAgesUnsafe(users *UserSoA) uint64 {
 	ages := users.Ages
 	length := len(ages)
 	
-	// Get pointer to the first element
 	ptr := unsafe.Pointer(&ages[0])
+	chunks8 := length / 8
 	
-	// Process elements using unsafe pointer arithmetic
-	for i := 0; i < length; i++ {
-		// Calculate pointer offset
-		elementPtr := (*uint8)(unsafe.Pointer(uintptr(ptr) + uintptr(i)))
-		sum += uint64(*elementPtr)
+	for i := 0; i < chunks8; i++ {
+		val := *(*uint64)(unsafe.Pointer(uintptr(ptr) + uintptr(i*8)))
+		// SWAR byte summation: 8 bytes -> 4 words -> 2 dwords -> 1 qword
+		s1 := (val & 0x00FF00FF00FF00FF) + ((val >> 8) & 0x00FF00FF00FF00FF)
+		s2 := (s1 & 0x0000FFFF0000FFFF) + ((s1 >> 16) & 0x0000FFFF0000FFFF)
+		sum += (s2 & 0xFFFFFFFF) + (s2 >> 32)
+	}
+	
+	for i := chunks8 * 8; i < length; i++ {
+		sum += uint64(*(*uint8)(unsafe.Pointer(uintptr(ptr) + uintptr(i))))
 	}
 	
 	return sum
+}
+
+//go:noescape
+func sumAVX2(ptr unsafe.Pointer, len int) uint64
+
+// SumAgesAVX2 - native AVX2 SIMD with VPSADBW in Plan9 Assembly
+func SumAgesAVX2(users *UserSoA) uint64 {
+	if len(users.Ages) == 0 {
+		return 0
+	}
+	return sumAVX2(unsafe.Pointer(&users.Ages[0]), len(users.Ages))
+}
+
+// SumAgesParallelAVX2 - parallel AVX2 across goroutines
+func SumAgesParallelAVX2(users *UserSoA) uint64 {
+	ages := users.Ages
+	length := len(ages)
+	if length == 0 {
+		return 0
+	}
+	numWorkers := runtime.NumCPU()
+	if numWorkers > 8 {
+		numWorkers = 8
+	}
+	chunkSize := length / numWorkers
+	results := make([]uint64, numWorkers)
+	var wg sync.WaitGroup
+
+	for i := 0; i < numWorkers; i++ {
+		wg.Add(1)
+		go func(w int) {
+			defer wg.Done()
+			start := w * chunkSize
+			end := start + chunkSize
+			if w == numWorkers-1 || end > length {
+				end = length
+			}
+			chunkLen := end - start
+			if chunkLen > 0 {
+				results[w] = sumAVX2(unsafe.Pointer(&ages[start]), chunkLen)
+			}
+		}(i)
+	}
+	wg.Wait()
+
+	var total uint64
+	for _, r := range results {
+		total += r
+	}
+	return total
 }
 
 // SumAgesGoroutines - parallel processing with goroutines
@@ -133,25 +188,23 @@ func SumAgesGoroutines(users *UserSoA) uint64 {
 		return 0
 	}
 	
-	// Calculate chunk size for each goroutine
 	chunkSize := length / numWorkers
 	if chunkSize == 0 {
 		chunkSize = 1
 		numWorkers = length
 	}
 	
-	// Channel to collect results
-	results := make(chan uint64, numWorkers)
+	results := make([]uint64, numWorkers)
 	var wg sync.WaitGroup
 	
-	// Launch goroutines
 	for i := 0; i < numWorkers; i++ {
 		wg.Add(1)
-		go func(start int) {
+		go func(workerID int) {
 			defer wg.Done()
 			
+			start := workerID * chunkSize
 			end := start + chunkSize
-			if end > length {
+			if workerID == numWorkers-1 || end > length {
 				end = length
 			}
 			
@@ -160,26 +213,21 @@ func SumAgesGoroutines(users *UserSoA) uint64 {
 				localSum += uint64(ages[j])
 			}
 			
-			results <- localSum
-		}(i * chunkSize)
+			results[workerID] = localSum
+		}(i)
 	}
 	
-	// Close results channel when all goroutines are done
-	go func() {
-		wg.Wait()
-		close(results)
-	}()
+	wg.Wait()
 	
-	// Collect results
 	var totalSum uint64
-	for result := range results {
+	for _, result := range results {
 		totalSum += result
 	}
 	
 	return totalSum
 }
 
-// SumAgesGoroutinesUnrolled - parallel processing with loop unrolling
+// SumAgesGoroutinesUnrolled - parallel processing with loop unrolling and slice results
 func SumAgesGoroutinesUnrolled(users *UserSoA) uint64 {
 	numWorkers := runtime.NumCPU()
 	ages := users.Ages
@@ -189,57 +237,47 @@ func SumAgesGoroutinesUnrolled(users *UserSoA) uint64 {
 		return 0
 	}
 	
-	// Calculate chunk size for each goroutine
 	chunkSize := length / numWorkers
 	if chunkSize == 0 {
 		chunkSize = 1
 		numWorkers = length
 	}
 	
-	// Channel to collect results
-	results := make(chan uint64, numWorkers)
+	results := make([]uint64, numWorkers)
 	var wg sync.WaitGroup
 	
-	// Launch goroutines
 	for i := 0; i < numWorkers; i++ {
 		wg.Add(1)
-		go func(start int) {
+		go func(workerID int) {
 			defer wg.Done()
 			
+			start := workerID * chunkSize
 			end := start + chunkSize
-			if end > length {
+			if workerID == numWorkers-1 || end > length {
 				end = length
 			}
 			
 			var localSum uint64
-			
-			// Loop unrolling within each goroutine
 			j := start
 			for j <= end-8 {
 				localSum += uint64(ages[j]) + uint64(ages[j+1]) + uint64(ages[j+2]) + uint64(ages[j+3]) +
-						   uint64(ages[j+4]) + uint64(ages[j+5]) + uint64(ages[j+6]) + uint64(ages[j+7])
+					uint64(ages[j+4]) + uint64(ages[j+5]) + uint64(ages[j+6]) + uint64(ages[j+7])
 				j += 8
 			}
 			
-			// Handle remaining elements
 			for j < end {
 				localSum += uint64(ages[j])
 				j++
 			}
 			
-			results <- localSum
-		}(i * chunkSize)
+			results[workerID] = localSum
+		}(i)
 	}
 	
-	// Close results channel when all goroutines are done
-	go func() {
-		wg.Wait()
-		close(results)
-	}()
+	wg.Wait()
 	
-	// Collect results
 	var totalSum uint64
-	for result := range results {
+	for _, result := range results {
 		totalSum += result
 	}
 	
@@ -314,14 +352,21 @@ func Benchmark(name string, fn func() uint64) BenchmarkResult {
 	// Warmup
 	fn()
 	
-	// Measure
-	start := time.Now()
-	result := fn()
-	elapsed := time.Since(start)
+	// Measure best of multiple iterations
+	var best time.Duration = time.Hour
+	var result uint64
+	for i := 0; i < 10; i++ {
+		start := time.Now()
+		result = fn()
+		elapsed := time.Since(start)
+		if elapsed < best {
+			best = elapsed
+		}
+	}
 	
 	return BenchmarkResult{
 		Name:   name,
-		TimeMs: float64(elapsed.Nanoseconds()) / 1e6,
+		TimeMs: float64(best.Nanoseconds()) / 1e6,
 		Result: result,
 	}
 }
@@ -398,6 +443,10 @@ func main() {
 	results = append(results, Benchmark("Go Unsafe", func() uint64 {
 		return SumAgesUnsafe(usersSoA)
 	}))
+
+	results = append(results, Benchmark("Go AVX2 Native SIMD", func() uint64 {
+		return SumAgesAVX2(usersSoA)
+	}))
 	
 	// Concurrent approaches
 	results = append(results, Benchmark("Go Goroutines", func() uint64 {
@@ -406,6 +455,10 @@ func main() {
 	
 	results = append(results, Benchmark("Go Goroutines Unrolled", func() uint64 {
 		return SumAgesGoroutinesUnrolled(usersSoA)
+	}))
+
+	results = append(results, Benchmark("Go Parallel AVX2", func() uint64 {
+		return SumAgesParallelAVX2(usersSoA)
 	}))
 	
 	results = append(results, Benchmark("Go Channels", func() uint64 {

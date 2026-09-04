@@ -120,7 +120,7 @@ int sumAgesUnrolled(UserTypedData users) {
   return sum;
 }
 
-/// Parallel processing with isolates
+/// Parallel processing with isolates and zero-copy views
 Future<int> sumAgesParallel(UserTypedData users) async {
   final numIsolates = Platform.numberOfProcessors;
   final chunkSize = (users.length / numIsolates).ceil();
@@ -132,7 +132,7 @@ Future<int> sumAgesParallel(UserTypedData users) async {
     final end = math.min(start + chunkSize, users.length);
     
     if (start < users.length) {
-      final chunk = users.ages.sublist(start, end);
+      final chunk = Uint8List.sublistView(users.ages, start, end);
       futures.add(Isolate.run(() => _sumChunk(chunk)));
     }
   }
@@ -141,10 +141,16 @@ Future<int> sumAgesParallel(UserTypedData users) async {
   return results.fold<int>(0, (sum, result) => sum + result);
 }
 
-/// Helper for isolate processing
+/// Helper for isolate processing with unrolled loop
 int _sumChunk(Uint8List chunk) {
   var sum = 0;
-  for (int i = 0; i < chunk.length; i++) {
+  final len = chunk.length;
+  int i = 0;
+  for (; i < len - 7; i += 8) {
+    sum += chunk[i] + chunk[i+1] + chunk[i+2] + chunk[i+3] +
+           chunk[i+4] + chunk[i+5] + chunk[i+6] + chunk[i+7];
+  }
+  for (; i < len; i++) {
     sum += chunk[i];
   }
   return sum;
