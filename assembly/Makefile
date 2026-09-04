@@ -1,7 +1,7 @@
 # 🚀⚡ ASSEMBLY BLAZING FAST MAKEFILE ⚡🚀
 
 CC = gcc
-CFLAGS = -O3 -march=native -msse2 -mavx2 -funroll-loops -flto -Wall -Wextra -std=c11
+CFLAGS = -O3 -march=native -msse2 -mavx2 -mavx512bw -mavx512dq -funroll-loops -flto -fopenmp -pthread -Wall -Wextra -std=c11
 TARGET = blazing_asm
 SOURCE = blazing_asm_inline.c
 

@@ -110,17 +110,16 @@ sum_ages_unrolled:
 .done:
     ret
 
-; ULTRA SIMD sum with AVX2 - process 32 bytes at once!
+; ULTRA SIMD sum with AVX2 PSADBW - process 32 bytes at once!
 ; Input: rdi = pointer to data, rsi = count
 ; Output: rax = sum
 sum_ages_avx2:
     xor rax, rax        ; sum = 0
     xor rcx, rcx        ; i = 0
     
-    ; Initialize AVX2 accumulator to zero
-    vpxor ymm0, ymm0, ymm0  ; ymm0 = accumulator (8 x 32-bit integers)
+    vpxor ymm0, ymm0, ymm0      ; ymm0 = accumulator (4 x 64-bit integers)
+    vpxor ymm2, ymm2, ymm2      ; ymm2 = dedicated zero register
     
-    ; Calculate how many 32-element chunks we can process
     mov rdx, rsi        ; rdx = count
     and rdx, ~31        ; rdx = count & ~31 (round down to multiple of 32)
     
@@ -128,40 +127,21 @@ sum_ages_avx2:
     cmp rcx, rdx        ; if i >= rounded_count
     jge .avx2_remainder ; process remaining elements
     
-    ; Load 32 bytes (32 ages) into YMM register
-    vmovdqu ymm1, [rdi + rcx]   ; Load 32 bytes unaligned
-    
-    ; Convert bytes to 32-bit integers and accumulate
-    ; Split 32 bytes into 4 groups of 8 bytes each
-    vpunpcklbw ymm2, ymm1, ymm0  ; Unpack low bytes to words
-    vpunpckhbw ymm3, ymm1, ymm0  ; Unpack high bytes to words
-    
-    vpunpcklwd ymm4, ymm2, ymm0  ; Unpack low words to dwords
-    vpunpckhwd ymm5, ymm2, ymm0  ; Unpack high words to dwords
-    vpunpcklwd ymm6, ymm3, ymm0  ; Unpack low words to dwords  
-    vpunpckhwd ymm7, ymm3, ymm0  ; Unpack high words to dwords
-    
-    ; Add all 4 YMM registers to accumulator
-    vpaddd ymm0, ymm0, ymm4     ; Add to accumulator
-    vpaddd ymm0, ymm0, ymm5     ; Add to accumulator
-    vpaddd ymm0, ymm0, ymm6     ; Add to accumulator
-    vpaddd ymm0, ymm0, ymm7     ; Add to accumulator
+    ; Load 32 bytes and compute sum of bytes per 8-byte group in 1 cycle
+    vmovdqu ymm1, [rdi + rcx]
+    vpsadbw ymm1, ymm1, ymm2    ; ymm1 = sum of 8 bytes in each 64-bit lane
+    vpaddq ymm0, ymm0, ymm1     ; 64-bit accumulation (never overflows)
     
     add rcx, 32         ; i += 32
     jmp .avx2_loop
     
 .avx2_remainder:
-    ; Horizontal sum of YMM accumulator
+    ; Horizontal sum of 4 x 64-bit lanes
     vextracti128 xmm1, ymm0, 1  ; Extract high 128 bits
-    vpaddd xmm0, xmm0, xmm1     ; Add high and low parts
-    
-    ; Horizontal add within 128-bit register
-    vpshufd xmm1, xmm0, 0x4E   ; Shuffle to add pairs
-    vpaddd xmm0, xmm0, xmm1
-    vpshufd xmm1, xmm0, 0x11   ; Shuffle to add remaining
-    vpaddd xmm0, xmm0, xmm1
-    
-    vmovd eax, xmm0     ; Move result to eax
+    vpaddq xmm0, xmm0, xmm1     ; Add high and low 128-bit parts
+    vmovq rax, xmm0             ; Lower 64 bits
+    vpextrq rdx, xmm0, 1        ; Higher 64 bits
+    add rax, rdx                ; Total vector sum in rax
     
     ; Process remaining elements (< 32)
 .remainder:
@@ -174,7 +154,7 @@ sum_ages_avx2:
     jmp .remainder      ; repeat
     
 .done:
-    vzeroupper          ; Clear upper bits of YMM registers for performance
+    vzeroupper          ; Clear upper bits of YMM registers
     ret
 
 ; EXTREME optimized version - combines everything
