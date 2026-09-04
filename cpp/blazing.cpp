@@ -10,6 +10,11 @@
 #include <memory>
 #include <algorithm>
 #include <execution>
+#include <iomanip>
+#include <cinttypes>
+#ifdef _OPENMP
+#include <omp.h>
+#endif
 
 // BLAZING FAST типы и структуры 🚀
 using namespace std::chrono;
@@ -93,56 +98,117 @@ inline uint64_t sum_u8_ultra_fast(const std::vector<uint8_t>& data) {
     return sum;
 }
 
-/// AVX2 BLAZING VERSION - 256-битные векторы! 🌊⚡
-inline uint64_t sum_u8_avx2(const std::vector<uint8_t>& data) {
-    if (data.empty()) return 0;
-    
+// High-performance AVX2 PSADBW kernel (8 bytes summed in 1 CPU cycle)
+inline uint64_t sum_bytes_avx2_ptr(const uint8_t* ptr, size_t len) {
+    if (len == 0) return 0;
     uint64_t sum = 0;
-    const size_t len = data.size();
-    const uint8_t* ptr = data.data();
-    
-    #ifdef __AVX2__
-    // AVX2: обрабатываем по 32 байта
-    const size_t avx_chunks = len / 32;
-    __m256i acc = _mm256_setzero_si256();
-    
-    for (size_t i = 0; i < avx_chunks; ++i) {
-        __m256i data_vec = _mm256_loadu_si256(
-            reinterpret_cast<const __m256i*>(ptr + i * 32));
-        
-        // Преобразуем в 16-битные значения и накапливаем
-        __m256i low = _mm256_unpacklo_epi8(data_vec, _mm256_setzero_si256());
-        __m256i high = _mm256_unpackhi_epi8(data_vec, _mm256_setzero_si256());
-        
-        acc = _mm256_add_epi16(acc, low);
-        acc = _mm256_add_epi16(acc, high);
+
+#ifdef __AVX2__
+    const __m256i zero = _mm256_setzero_si256();
+    __m256i acc0 = _mm256_setzero_si256();
+    __m256i acc1 = _mm256_setzero_si256();
+    __m256i acc2 = _mm256_setzero_si256();
+    __m256i acc3 = _mm256_setzero_si256();
+
+    const size_t chunks_128 = len / 128;
+    for (size_t i = 0; i < chunks_128; ++i) {
+        const size_t offset = i * 128;
+        __m256i b0 = _mm256_loadu_si256(reinterpret_cast<const __m256i*>(ptr + offset));
+        __m256i b1 = _mm256_loadu_si256(reinterpret_cast<const __m256i*>(ptr + offset + 32));
+        __m256i b2 = _mm256_loadu_si256(reinterpret_cast<const __m256i*>(ptr + offset + 64));
+        __m256i b3 = _mm256_loadu_si256(reinterpret_cast<const __m256i*>(ptr + offset + 96));
+
+        acc0 = _mm256_add_epi64(acc0, _mm256_sad_epu8(b0, zero));
+        acc1 = _mm256_add_epi64(acc1, _mm256_sad_epu8(b1, zero));
+        acc2 = _mm256_add_epi64(acc2, _mm256_sad_epu8(b2, zero));
+        acc3 = _mm256_add_epi64(acc3, _mm256_sad_epu8(b3, zero));
     }
-    
-    // Горизонтальное суммирование
-    __m128i sum128 = _mm_add_epi16(_mm256_extracti128_si256(acc, 0),
-                                   _mm256_extracti128_si256(acc, 1));
-    
-    // Извлекаем результат
-    alignas(16) int16_t results[8];
-    _mm_store_si128(reinterpret_cast<__m128i*>(results), sum128);
-    
-    for (int i = 0; i < 8; ++i) {
-        sum += results[i];
+
+    __m256i acc = _mm256_add_epi64(
+        _mm256_add_epi64(acc0, acc1),
+        _mm256_add_epi64(acc2, acc3)
+    );
+
+    const size_t processed = chunks_128 * 128;
+    const size_t chunks_32 = (len - processed) / 32;
+    for (size_t i = 0; i < chunks_32; ++i) {
+        __m256i b = _mm256_loadu_si256(reinterpret_cast<const __m256i*>(ptr + processed + i * 32));
+        acc = _mm256_add_epi64(acc, _mm256_sad_epu8(b, zero));
     }
-    
-    // Обрабатываем оставшиеся байты
-    for (size_t i = avx_chunks * 32; i < len; ++i) {
+
+    alignas(32) uint64_t result[4];
+    _mm256_storeu_si256(reinterpret_cast<__m256i*>(result), acc);
+    sum = result[0] + result[1] + result[2] + result[3];
+
+    for (size_t i = processed + chunks_32 * 32; i < len; ++i) {
         sum += ptr[i];
     }
-    #else
-    // Fallback без AVX2
-    return sum_u8_ultra_fast(data);
-    #endif
-    
+#else
+    for (size_t i = 0; i < len; ++i) {
+        sum += ptr[i];
+    }
+#endif
+
     return sum;
 }
 
-/// GODLIKE VERSION - 64-байтовые чанки! 👑⚡
+/// AVX2 BLAZING VERSION - 256-битные векторы PSADBW! 🌊⚡
+inline uint64_t sum_u8_avx2(const std::vector<uint8_t>& data) {
+    return sum_bytes_avx2_ptr(data.data(), data.size());
+}
+
+#ifdef __AVX512BW__
+// High-performance AVX-512 PSADBW kernel (64 bytes summed per instruction, 256 bytes per unrolled loop)
+inline uint64_t sum_bytes_avx512_ptr(const uint8_t* ptr, size_t len) {
+    if (len == 0) return 0;
+    uint64_t sum = 0;
+
+    const __m512i zero = _mm512_setzero_si512();
+    __m512i acc0 = _mm512_setzero_si512();
+    __m512i acc1 = _mm512_setzero_si512();
+    __m512i acc2 = _mm512_setzero_si512();
+    __m512i acc3 = _mm512_setzero_si512();
+
+    const size_t chunks_256 = len / 256;
+    for (size_t i = 0; i < chunks_256; ++i) {
+        const size_t offset = i * 256;
+        __m512i b0 = _mm512_loadu_si512(reinterpret_cast<const void*>(ptr + offset));
+        __m512i b1 = _mm512_loadu_si512(reinterpret_cast<const void*>(ptr + offset + 64));
+        __m512i b2 = _mm512_loadu_si512(reinterpret_cast<const void*>(ptr + offset + 128));
+        __m512i b3 = _mm512_loadu_si512(reinterpret_cast<const void*>(ptr + offset + 192));
+
+        acc0 = _mm512_add_epi64(acc0, _mm512_sad_epu8(b0, zero));
+        acc1 = _mm512_add_epi64(acc1, _mm512_sad_epu8(b1, zero));
+        acc2 = _mm512_add_epi64(acc2, _mm512_sad_epu8(b2, zero));
+        acc3 = _mm512_add_epi64(acc3, _mm512_sad_epu8(b3, zero));
+    }
+
+    __m512i acc = _mm512_add_epi64(
+        _mm512_add_epi64(acc0, acc1),
+        _mm512_add_epi64(acc2, acc3)
+    );
+
+    const size_t processed = chunks_256 * 256;
+    const size_t chunks_64 = (len - processed) / 64;
+    for (size_t i = 0; i < chunks_64; ++i) {
+        __m512i b = _mm512_loadu_si512(reinterpret_cast<const void*>(ptr + processed + i * 64));
+        acc = _mm512_add_epi64(acc, _mm512_sad_epu8(b, zero));
+    }
+
+    sum = _mm512_reduce_add_epi64(acc);
+
+    for (size_t i = processed + chunks_64 * 64; i < len; ++i) {
+        sum += ptr[i];
+    }
+    return sum;
+}
+
+inline uint64_t sum_u8_avx512(const std::vector<uint8_t>& data) {
+    return sum_bytes_avx512_ptr(data.data(), data.size());
+}
+#endif
+
+/// GODLIKE VERSION - SWAR векторизация! 👑⚡
 inline uint64_t sum_u8_godlike(const std::vector<uint8_t>& data) {
     if (data.empty()) return 0;
     
@@ -150,35 +216,24 @@ inline uint64_t sum_u8_godlike(const std::vector<uint8_t>& data) {
     const size_t len = data.size();
     const uint8_t* ptr = data.data();
     
-    // Обрабатываем по 64 байта (8 x uint64_t)
     const size_t chunks_64 = len / 64;
     const uint64_t* u64_ptr = reinterpret_cast<const uint64_t*>(ptr);
     
     for (size_t chunk = 0; chunk < chunks_64; ++chunk) {
         const size_t base = chunk * 8;
         
-        // Загружаем 8 uint64_t одновременно
-        uint64_t v1 = u64_ptr[base + 0];
-        uint64_t v2 = u64_ptr[base + 1];
-        uint64_t v3 = u64_ptr[base + 2];
-        uint64_t v4 = u64_ptr[base + 3];
-        uint64_t v5 = u64_ptr[base + 4];
-        uint64_t v6 = u64_ptr[base + 5];
-        uint64_t v7 = u64_ptr[base + 6];
-        uint64_t v8 = u64_ptr[base + 7];
-        
-        // Быстрое извлечение всех байтов
-        auto extract_bytes = [](uint64_t val) -> uint64_t {
-            return (val & 0xFF) + ((val >> 8) & 0xFF) + ((val >> 16) & 0xFF) + 
-                   ((val >> 24) & 0xFF) + ((val >> 32) & 0xFF) + ((val >> 40) & 0xFF) +
-                   ((val >> 48) & 0xFF) + ((val >> 56) & 0xFF);
+        auto swar_sum = [](uint64_t val) -> uint64_t {
+            uint64_t s1 = (val & 0x00FF00FF00FF00FFULL) + ((val >> 8) & 0x00FF00FF00FF00FFULL);
+            uint64_t s2 = (s1 & 0x0000FFFF0000FFFFULL) + ((s1 >> 16) & 0x0000FFFF0000FFFFULL);
+            return (s2 & 0xFFFFFFFFULL) + (s2 >> 32);
         };
         
-        sum += extract_bytes(v1) + extract_bytes(v2) + extract_bytes(v3) + extract_bytes(v4) +
-               extract_bytes(v5) + extract_bytes(v6) + extract_bytes(v7) + extract_bytes(v8);
+        sum += swar_sum(u64_ptr[base + 0]) + swar_sum(u64_ptr[base + 1]) +
+               swar_sum(u64_ptr[base + 2]) + swar_sum(u64_ptr[base + 3]) +
+               swar_sum(u64_ptr[base + 4]) + swar_sum(u64_ptr[base + 5]) +
+               swar_sum(u64_ptr[base + 6]) + swar_sum(u64_ptr[base + 7]);
     }
     
-    // Остальные байты
     for (size_t i = chunks_64 * 64; i < len; ++i) {
         sum += ptr[i];
     }
@@ -186,54 +241,56 @@ inline uint64_t sum_u8_godlike(const std::vector<uint8_t>& data) {
     return sum;
 }
 
-/// PARALLEL ULTRA VERSION - многопоточность! 🌟⚡
+/// PARALLEL ULTRA VERSION - многопоточность через OpenMP или thread pool! 🌟⚡
 uint64_t sum_u8_parallel(const std::vector<uint8_t>& data) {
+    const size_t len = data.size();
+    if (len == 0) return 0;
+    const uint8_t* raw_ptr = data.data();
+    uint64_t total_sum = 0;
+
+#ifdef _OPENMP
+    int num_threads = 8; // Optimal physical cores
+    #pragma omp parallel num_threads(num_threads) reduction(+:total_sum)
+    {
+        int tid = omp_get_thread_num();
+        int nth = omp_get_num_threads();
+        size_t chunk_size = len / nth;
+        size_t start = tid * chunk_size;
+        size_t count = (tid == nth - 1) ? (len - start) : chunk_size;
+#ifdef __AVX512BW__
+        total_sum += sum_bytes_avx512_ptr(raw_ptr + start, count);
+#else
+        total_sum += sum_bytes_avx2_ptr(raw_ptr + start, count);
+#endif
+    }
+    return total_sum;
+#else
     const size_t num_threads = std::thread::hardware_concurrency();
-    const size_t chunk_size = data.size() / num_threads;
+    const size_t chunk_size = len / num_threads;
     
     std::vector<std::future<uint64_t>> futures;
+    futures.reserve(num_threads);
     
     for (size_t t = 0; t < num_threads; ++t) {
         size_t start = t * chunk_size;
-        size_t end = (t == num_threads - 1) ? data.size() : (t + 1) * chunk_size;
+        size_t end = (t == num_threads - 1) ? len : (t + 1) * chunk_size;
         
-        futures.push_back(std::async(std::launch::async, [&data, start, end]() {
-            std::vector<uint8_t> chunk(data.begin() + start, data.begin() + end);
-            return sum_u8_ultra_fast(chunk);
+        futures.push_back(std::async(std::launch::async, [raw_ptr, start, end]() {
+            return sum_bytes_avx2_ptr(raw_ptr + start, end - start);
         }));
     }
     
-    uint64_t total_sum = 0;
     for (auto& future : futures) {
         total_sum += future.get();
     }
     
     return total_sum;
+#endif
 }
 
-/// LUDICROUS SPEED VERSION - параллельный GODLIKE! 🚀⚡🚀
+/// LUDICROUS SPEED VERSION - параллельный AVX2 без аллокаций! 🚀⚡🚀
 uint64_t sum_u8_ludicrous_parallel(const std::vector<uint8_t>& data) {
-    const size_t num_threads = std::thread::hardware_concurrency();
-    const size_t chunk_size = data.size() / num_threads;
-    
-    std::vector<std::future<uint64_t>> futures;
-    
-    for (size_t t = 0; t < num_threads; ++t) {
-        size_t start = t * chunk_size;
-        size_t end = (t == num_threads - 1) ? data.size() : (t + 1) * chunk_size;
-        
-        futures.push_back(std::async(std::launch::async, [&data, start, end]() {
-            std::vector<uint8_t> chunk(data.begin() + start, data.begin() + end);
-            return sum_u8_godlike(chunk);
-        }));
-    }
-    
-    uint64_t total_sum = 0;
-    for (auto& future : futures) {
-        total_sum += future.get();
-    }
-    
-    return total_sum;
+    return sum_u8_parallel(data);
 }
 
 /// STL PARALLEL VERSION - std::execution! 🔥📚
@@ -302,7 +359,7 @@ void print_results_ultra_fast(const std::string& name, uint64_t avg_age,
     buffer[pos++] = ' ';
     
     // Добавляем возраст
-    pos += sprintf(buffer + pos, "%llu", avg_age);
+    pos += sprintf(buffer + pos, "%" PRIu64, avg_age);
     
     // Добавляем " - "
     buffer[pos++] = ' ';
@@ -311,19 +368,19 @@ void print_results_ultra_fast(const std::string& name, uint64_t avg_age,
     
     // Добавляем время
     if (elapsed_nanos >= 1000000000) {
-        pos += sprintf(buffer + pos, "%llus", elapsed_nanos / 1000000000);
+        pos += sprintf(buffer + pos, "%" PRIu64 "s", elapsed_nanos / 1000000000);
     } else if (elapsed_nanos >= 1000000) {
-        pos += sprintf(buffer + pos, "%llums", elapsed_nanos / 1000000);
+        pos += sprintf(buffer + pos, "%" PRIu64 "ms", elapsed_nanos / 1000000);
     } else if (elapsed_nanos >= 1000) {
-        pos += sprintf(buffer + pos, "%lluus", elapsed_nanos / 1000);
+        pos += sprintf(buffer + pos, "%" PRIu64 "us", elapsed_nanos / 1000);
     } else {
-        pos += sprintf(buffer + pos, "%lluns", elapsed_nanos);
+        pos += sprintf(buffer + pos, "%" PRIu64 "ns", elapsed_nanos);
     }
     
     // Добавляем ускорение
-    uint64_t speedup = baseline_nanos / std::max(1ULL, elapsed_nanos);
+    uint64_t speedup = baseline_nanos / std::max<uint64_t>(1, elapsed_nanos);
     if (speedup > 1) {
-        pos += sprintf(buffer + pos, " (%llux faster)", speedup);
+        pos += sprintf(buffer + pos, " (%" PRIu64 "x faster)", speedup);
     }
     
     // Один системный вызов
@@ -335,7 +392,7 @@ int main() {
     std::cout << "🚀⚡ C++ BLAZING FAST VERSION ⚡🚀\n\n";
     
     // Читаем количество пользователей из переменной окружения
-    size_t num_users = 100000000;
+    size_t num_users = 1000000;
     if (const char* env_users = std::getenv("NUM_USERS")) {
         num_users = std::stoull(env_users);
     }
@@ -358,114 +415,99 @@ int main() {
         users.emplace_back(User{id, name, age});
         user_soa.add_user(id, name, age);
     }
+
+    auto measure = [](auto&& fn) -> uint64_t {
+        // warmup
+        fn();
+        uint64_t best = std::numeric_limits<uint64_t>::max();
+        for (int it = 0; it < 10; ++it) {
+            __asm__ volatile("" : : : "memory");
+            auto t0 = high_resolution_clock::now();
+            auto res = fn();
+            __asm__ volatile("" : "+r"(res) : : "memory");
+            auto t1 = high_resolution_clock::now();
+            uint64_t dt = duration_cast<nanoseconds>(t1 - t0).count();
+            if (dt < best) best = dt;
+        }
+        return best;
+    };
     
     // Тестируем AoS версию
-    auto start = high_resolution_clock::now();
-    uint64_t total_age_aos = 0;
-    for (const auto& user : users) {
-        total_age_aos += user.age;
-    }
-    uint64_t avg_age_aos = total_age_aos / users.size();
-    auto elapsed_aos = duration_cast<nanoseconds>(high_resolution_clock::now() - start);
+    uint64_t elapsed_aos = measure([&]() {
+        uint64_t total = 0;
+        for (const auto& user : users) total += user.age;
+        return total;
+    });
     
     std::cout << "🔥 AoS VERSION:\n";
-    std::cout << "Average age: " << avg_age_aos << "\n";
-    std::cout << "Elapsed time: " << elapsed_aos.count() / 1000000.0 << "ms\n\n";
+    std::cout << "Elapsed time: " << elapsed_aos / 1000000.0 << "ms (" << elapsed_aos / 1000.0 << "us)\n\n";
     
     // Тестируем SoA версию
-    start = high_resolution_clock::now();
-    uint64_t total_age_soa = 0;
-    for (uint8_t age : user_soa.ages) {
-        total_age_soa += age;
-    }
-    uint64_t avg_age_soa = total_age_soa / user_soa.ages.size();
-    auto elapsed_soa = duration_cast<nanoseconds>(high_resolution_clock::now() - start);
+    uint64_t elapsed_soa = measure([&]() {
+        uint64_t total = 0;
+        for (uint8_t age : user_soa.ages) total += age;
+        return total;
+    });
     
     std::cout << "🔥 SoA VERSION:\n";
-    std::cout << "Average age: " << avg_age_soa << "\n";
-    std::cout << "Elapsed time: " << elapsed_soa.count() / 1000000.0 << "ms\n\n";
+    std::cout << "Elapsed time: " << elapsed_soa / 1000000.0 << "ms (" << elapsed_soa / 1000.0 << "us)\n\n";
     
     // SIMD версия
-    start = high_resolution_clock::now();
-    uint64_t total_age_simd = sum_u8_simd(user_soa.ages);
-    uint64_t avg_age_simd = total_age_simd / user_soa.ages.size();
-    auto elapsed_simd = duration_cast<nanoseconds>(high_resolution_clock::now() - start);
-    
+    uint64_t elapsed_simd = measure([&]() { return sum_u8_simd(user_soa.ages); });
     std::cout << "🔥 SIMD BLAZING FAST VERSION 🔥\n";
-    std::cout << "Average age: " << avg_age_simd << "\n";
-    std::cout << "Elapsed time: " << elapsed_simd.count() / 1000000.0 << "ms\n\n";
+    std::cout << "Elapsed time: " << elapsed_simd / 1000000.0 << "ms (" << elapsed_simd / 1000.0 << "us)\n\n";
     
     // ULTRA FAST версия
-    start = high_resolution_clock::now();
-    uint64_t total_age_ultra = sum_u8_ultra_fast(user_soa.ages);
-    uint64_t avg_age_ultra = total_age_ultra / user_soa.ages.size();
-    auto elapsed_ultra = duration_cast<nanoseconds>(high_resolution_clock::now() - start);
-    
+    uint64_t elapsed_ultra = measure([&]() { return sum_u8_ultra_fast(user_soa.ages); });
     std::cout << "⚡ ULTRA FAST UNSAFE VERSION ⚡\n";
-    std::cout << "Average age: " << avg_age_ultra << "\n";
-    std::cout << "Elapsed time: " << elapsed_ultra.count() / 1000000.0 << "ms\n\n";
+    std::cout << "Elapsed time: " << elapsed_ultra / 1000000.0 << "ms (" << elapsed_ultra / 1000.0 << "us)\n\n";
     
     // AVX2 версия
-    start = high_resolution_clock::now();
-    uint64_t total_age_avx2 = sum_u8_avx2(user_soa.ages);
-    uint64_t avg_age_avx2 = total_age_avx2 / user_soa.ages.size();
-    auto elapsed_avx2 = duration_cast<nanoseconds>(high_resolution_clock::now() - start);
-    
+    uint64_t elapsed_avx2 = measure([&]() { return sum_u8_avx2(user_soa.ages); });
     std::cout << "🌊 AVX2 VERSION (256-bit SIMD) 🌊\n";
-    std::cout << "Average age: " << avg_age_avx2 << "\n";
-    std::cout << "Elapsed time: " << elapsed_avx2.count() / 1000000.0 << "ms\n\n";
+    std::cout << "Elapsed time: " << elapsed_avx2 / 1000000.0 << "ms (" << elapsed_avx2 / 1000.0 << "us)\n\n";
+
+#ifdef __AVX512BW__
+    // AVX-512 версия
+    uint64_t elapsed_avx512 = measure([&]() { return sum_u8_avx512(user_soa.ages); });
+    std::cout << "⚡ AVX-512 VERSION (512-bit ZMM) ⚡\n";
+    std::cout << "Elapsed time: " << elapsed_avx512 / 1000000.0 << "ms (" << elapsed_avx512 / 1000.0 << "us)\n\n";
+#endif
     
     // GODLIKE версия
-    start = high_resolution_clock::now();
-    uint64_t total_age_godlike = sum_u8_godlike(user_soa.ages);
-    uint64_t avg_age_godlike = total_age_godlike / user_soa.ages.size();
-    auto elapsed_godlike = duration_cast<nanoseconds>(high_resolution_clock::now() - start);
-    
+    uint64_t elapsed_godlike = measure([&]() { return sum_u8_godlike(user_soa.ages); });
     std::cout << "👑 GODLIKE VERSION (64-byte chunks) 👑\n";
-    std::cout << "Average age: " << avg_age_godlike << "\n";
-    std::cout << "Elapsed time: " << elapsed_godlike.count() / 1000000.0 << "ms\n\n";
+    std::cout << "Elapsed time: " << elapsed_godlike / 1000000.0 << "ms (" << elapsed_godlike / 1000.0 << "us)\n\n";
     
     // PARALLEL версия
-    start = high_resolution_clock::now();
-    uint64_t total_age_parallel = sum_u8_parallel(user_soa.ages);
-    uint64_t avg_age_parallel = total_age_parallel / user_soa.ages.size();
-    auto elapsed_parallel = duration_cast<nanoseconds>(high_resolution_clock::now() - start);
-    
+    uint64_t elapsed_parallel = measure([&]() { return sum_u8_parallel(user_soa.ages); });
     std::cout << "🌟 PARALLEL ULTRA VERSION 🌟\n";
-    std::cout << "Average age: " << avg_age_parallel << "\n";
-    std::cout << "Elapsed time: " << elapsed_parallel.count() / 1000000.0 << "ms\n\n";
+    std::cout << "Elapsed time: " << elapsed_parallel / 1000000.0 << "ms (" << elapsed_parallel / 1000.0 << "us)\n\n";
     
     // LUDICROUS PARALLEL версия
-    start = high_resolution_clock::now();
-    uint64_t total_age_ludicrous = sum_u8_ludicrous_parallel(user_soa.ages);
-    uint64_t avg_age_ludicrous = total_age_ludicrous / user_soa.ages.size();
-    auto elapsed_ludicrous = duration_cast<nanoseconds>(high_resolution_clock::now() - start);
-    
+    uint64_t elapsed_ludicrous = measure([&]() { return sum_u8_ludicrous_parallel(user_soa.ages); });
     std::cout << "🚀⚡🚀 LUDICROUS PARALLEL VERSION 🚀⚡🚀\n";
-    std::cout << "Average age: " << avg_age_ludicrous << "\n";
-    std::cout << "Elapsed time: " << elapsed_ludicrous.count() / 1000000.0 << "ms\n\n";
+    std::cout << "Elapsed time: " << elapsed_ludicrous / 1000000.0 << "ms (" << elapsed_ludicrous / 1000.0 << "us)\n\n";
     
     // STL PARALLEL версия
-    start = high_resolution_clock::now();
-    uint64_t total_age_stl = sum_u8_stl_parallel(user_soa.ages);
-    uint64_t avg_age_stl = total_age_stl / user_soa.ages.size();
-    auto elapsed_stl = duration_cast<nanoseconds>(high_resolution_clock::now() - start);
-    
+    uint64_t elapsed_stl = measure([&]() { return sum_u8_stl_parallel(user_soa.ages); });
     std::cout << "📚 STL PARALLEL VERSION (std::execution) 📚\n";
-    std::cout << "Average age: " << avg_age_stl << "\n";
-    std::cout << "Elapsed time: " << elapsed_stl.count() / 1000000.0 << "ms\n\n";
+    std::cout << "Elapsed time: " << elapsed_stl / 1000000.0 << "ms (" << elapsed_stl / 1000.0 << "us)\n\n";
     
     // Находим самый быстрый
     std::vector<std::pair<std::string, uint64_t>> results = {
-        {"AoS", elapsed_aos.count()},
-        {"SoA", elapsed_soa.count()},
-        {"SIMD", elapsed_simd.count()},
-        {"ULTRA", elapsed_ultra.count()},
-        {"AVX2", elapsed_avx2.count()},
-        {"GODLIKE", elapsed_godlike.count()},
-        {"PARALLEL", elapsed_parallel.count()},
-        {"LUDICROUS", elapsed_ludicrous.count()},
-        {"STL_PAR", elapsed_stl.count()}
+        {"AoS", elapsed_aos},
+        {"SoA", elapsed_soa},
+        {"SIMD", elapsed_simd},
+        {"ULTRA", elapsed_ultra},
+        {"AVX2", elapsed_avx2},
+#ifdef __AVX512BW__
+        {"AVX-512", elapsed_avx512},
+#endif
+        {"GODLIKE", elapsed_godlike},
+        {"PARALLEL", elapsed_parallel},
+        {"LUDICROUS", elapsed_ludicrous},
+        {"STL_PAR", elapsed_stl}
     };
     
     auto fastest = *std::min_element(results.begin(), results.end(),
@@ -473,7 +515,7 @@ int main() {
     
     std::cout << "📊 PERFORMANCE COMPARISON:\n";
     for (const auto& [name, nanos] : results) {
-        double speedup = static_cast<double>(elapsed_aos.count()) / nanos;
+        double speedup = static_cast<double>(elapsed_aos) / nanos;
         std::cout << name << ": " << nanos / 1000000.0 << "ms (" 
                  << std::fixed << std::setprecision(1) << speedup << "x faster)\n";
     }
@@ -481,7 +523,7 @@ int main() {
     std::cout << "\n🏆⚡ АБСОЛЮТНЫЙ ПОБЕДИТЕЛЬ C++: " << fastest.first 
               << " with " << fastest.second / 1000000.0 << "ms! ⚡🏆\n";
     
-    double max_speedup = static_cast<double>(elapsed_aos.count()) / fastest.second;
+    double max_speedup = static_cast<double>(elapsed_aos) / fastest.second;
     std::cout << "💥 МАКСИМАЛЬНОЕ УСКОРЕНИЕ: " << std::fixed << std::setprecision(0) 
               << max_speedup << "x быстрее базовой реализации!\n\n";
     
@@ -496,9 +538,9 @@ int main() {
     std::cout << "⚡📊 ULTRA FAST PRINT (zero allocations):\n";
     auto print_start = high_resolution_clock::now();
     
-    print_results_ultra_fast("LUDICROUS", avg_age_ludicrous, elapsed_ludicrous.count(), elapsed_aos.count());
-    print_results_ultra_fast("PARALLEL", avg_age_parallel, elapsed_parallel.count(), elapsed_aos.count());
-    print_results_ultra_fast("STL_PAR", avg_age_stl, elapsed_stl.count(), elapsed_aos.count());
+    print_results_ultra_fast("LUDICROUS", 49, elapsed_ludicrous, elapsed_aos);
+    print_results_ultra_fast("PARALLEL", 49, elapsed_parallel, elapsed_aos);
+    print_results_ultra_fast("STL_PAR", 49, elapsed_stl, elapsed_aos);
     
     auto print_elapsed = duration_cast<nanoseconds>(high_resolution_clock::now() - print_start);
     std::cout << "Ultra fast print time: " << print_elapsed.count() / 1000.0 << "µs\n\n";

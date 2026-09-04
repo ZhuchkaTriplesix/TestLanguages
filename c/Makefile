@@ -1,8 +1,8 @@
 # 🚀⚡ C BLAZING FAST MAKEFILE ⚡🚀
 
 CC = gcc
-CFLAGS = -O3 -march=native -mavx2 -mfma -funroll-loops -flto -Wall -Wextra -std=c11
-LDFLAGS = -pthread
+CFLAGS = -O3 -march=native -mavx2 -mavx512bw -mavx512dq -mfma -funroll-loops -flto -Wall -Wextra -std=c11 -fopenmp
+LDFLAGS = -pthread -fopenmp
 TARGET = blazing_c
 SOURCE = blazing.c
 

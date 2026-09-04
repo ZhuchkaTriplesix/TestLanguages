@@ -2,7 +2,7 @@
 CXX = g++
 CXXFLAGS = -std=c++17 -O3 -march=native -mtune=native -flto -ffast-math \
            -funroll-loops -finline-functions -fomit-frame-pointer \
-           -mavx2 -mfma -mbmi2 -fopenmp -DNDEBUG
+           -mavx2 -mavx512bw -mavx512dq -mfma -mbmi2 -fopenmp -DNDEBUG
            
 # Дополнительные флаги для максимальной производительности
 CXXFLAGS += -Wall -Wextra -Wpedantic -Wno-unused-parameter

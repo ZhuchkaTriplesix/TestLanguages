@@ -17,10 +17,14 @@
 #endif
 
 // SIMD includes (if supported)
-#ifdef __AVX2__
+#if defined(__AVX512BW__) || defined(__AVX2__)
     #include <immintrin.h>
 #elif defined(__SSE2__)
     #include <emmintrin.h>
+#endif
+
+#ifdef _OPENMP
+    #include <omp.h>
 #endif
 
 // 🚀⚡ C BLAZING FAST BENCHMARK SUITE ⚡🚀
@@ -114,13 +118,13 @@ UserSoA* create_user_soa(size_t capacity) {
     
     // Use platform-specific aligned allocation
 #ifdef _WIN32
-    soa->ids = _aligned_malloc(capacity * sizeof(uint32_t), 32);
-    soa->names = _aligned_malloc(capacity * sizeof(char[32]), 32);
-    soa->ages = _aligned_malloc(capacity * sizeof(uint8_t), 32);
+    soa->ids = _aligned_malloc(capacity * sizeof(uint32_t), 64);
+    soa->names = _aligned_malloc(capacity * sizeof(char[32]), 64);
+    soa->ages = _aligned_malloc(capacity * sizeof(uint8_t), 64);
 #else
-    soa->ids = aligned_alloc(32, capacity * sizeof(uint32_t));  // 32-byte aligned for AVX
-    soa->names = aligned_alloc(32, capacity * sizeof(char[32]));
-    soa->ages = aligned_alloc(32, capacity * sizeof(uint8_t));
+    soa->ids = aligned_alloc(64, capacity * sizeof(uint32_t));  // 64-byte aligned for AVX-512 and cache lines
+    soa->names = aligned_alloc(64, capacity * sizeof(char[32]));
+    soa->ages = aligned_alloc(64, capacity * sizeof(uint8_t));
 #endif
     
     if (!soa->ids || !soa->names || !soa->ages) {
@@ -209,67 +213,116 @@ uint64_t sum_ages_pointer(UserSoA *users) {
     return sum;
 }
 
-// SumAgesAVX - SIMD optimization with AVX2
-uint64_t sum_ages_avx(UserSoA *users) {
+// Fast AVX2 helper using PSADBW (8 bytes summed in 1 cycle)
+static inline uint64_t sum_bytes_avx2(const uint8_t *ages, size_t count) {
     uint64_t sum = 0;
-    uint8_t *ages = users->ages;
-    size_t count = users->count;
-    
 #ifdef __AVX2__
-    size_t simd_count = count & ~31;  // Process 32 elements at a time
-    
-    // SIMD processing with AVX2
-    __m256i sum_vec = _mm256_setzero_si256();
-    
-    for (size_t i = 0; i < simd_count; i += 32) {
-        __m256i data = _mm256_load_si256((__m256i*)(ages + i));
-        
-        // Unpack bytes to words for accumulation
-        __m256i lo = _mm256_unpacklo_epi8(data, _mm256_setzero_si256());
-        __m256i hi = _mm256_unpackhi_epi8(data, _mm256_setzero_si256());
-        
-        // Further unpack to dwords
-        __m256i lo_lo = _mm256_unpacklo_epi16(lo, _mm256_setzero_si256());
-        __m256i lo_hi = _mm256_unpackhi_epi16(lo, _mm256_setzero_si256());
-        __m256i hi_lo = _mm256_unpacklo_epi16(hi, _mm256_setzero_si256());
-        __m256i hi_hi = _mm256_unpackhi_epi16(hi, _mm256_setzero_si256());
-        
-        // Add to accumulator
-        sum_vec = _mm256_add_epi32(sum_vec, lo_lo);
-        sum_vec = _mm256_add_epi32(sum_vec, lo_hi);
-        sum_vec = _mm256_add_epi32(sum_vec, hi_lo);
-        sum_vec = _mm256_add_epi32(sum_vec, hi_hi);
+    const __m256i zero = _mm256_setzero_si256();
+    __m256i acc0 = _mm256_setzero_si256();
+    __m256i acc1 = _mm256_setzero_si256();
+    __m256i acc2 = _mm256_setzero_si256();
+    __m256i acc3 = _mm256_setzero_si256();
+
+    size_t chunks_128 = count / 128;
+    for (size_t i = 0; i < chunks_128; i++) {
+        size_t offset = i * 128;
+        __m256i b0 = _mm256_loadu_si256((const __m256i*)(ages + offset));
+        __m256i b1 = _mm256_loadu_si256((const __m256i*)(ages + offset + 32));
+        __m256i b2 = _mm256_loadu_si256((const __m256i*)(ages + offset + 64));
+        __m256i b3 = _mm256_loadu_si256((const __m256i*)(ages + offset + 96));
+
+        acc0 = _mm256_add_epi64(acc0, _mm256_sad_epu8(b0, zero));
+        acc1 = _mm256_add_epi64(acc1, _mm256_sad_epu8(b1, zero));
+        acc2 = _mm256_add_epi64(acc2, _mm256_sad_epu8(b2, zero));
+        acc3 = _mm256_add_epi64(acc3, _mm256_sad_epu8(b3, zero));
     }
-    
-    // Extract sum from vector
-    uint32_t result[8];
-    _mm256_store_si256((__m256i*)result, sum_vec);
-    for (int i = 0; i < 8; i++) {
-        sum += result[i];
+
+    __m256i acc = _mm256_add_epi64(
+        _mm256_add_epi64(acc0, acc1),
+        _mm256_add_epi64(acc2, acc3)
+    );
+
+    size_t processed = chunks_128 * 128;
+    size_t chunks_32 = (count - processed) / 32;
+    for (size_t i = 0; i < chunks_32; i++) {
+        __m256i b = _mm256_loadu_si256((const __m256i*)(ages + processed + i * 32));
+        acc = _mm256_add_epi64(acc, _mm256_sad_epu8(b, zero));
     }
-    
-    // Handle remaining elements
-    for (size_t i = simd_count; i < count; i++) {
+
+    uint64_t result[4];
+    _mm256_storeu_si256((__m256i*)result, acc);
+    sum = result[0] + result[1] + result[2] + result[3];
+
+    for (size_t i = processed + chunks_32 * 32; i < count; i++) {
         sum += ages[i];
     }
 #else
-    // Fallback to unrolled version if AVX2 not available
-    return sum_ages_unrolled(users);
+    for (size_t i = 0; i < count; i++) {
+        sum += ages[i];
+    }
 #endif
-    
     return sum;
 }
+
+// SumAgesAVX - SIMD optimization with AVX2
+uint64_t sum_ages_avx(UserSoA *users) {
+    return sum_bytes_avx2(users->ages, users->count);
+}
+
+#ifdef __AVX512BW__
+// Fast AVX-512 helper using PSADBW (64 bytes summed per instruction, 256 bytes per unrolled loop)
+static inline uint64_t sum_bytes_avx512(const uint8_t *ages, size_t count) {
+    uint64_t sum = 0;
+    const __m512i zero = _mm512_setzero_si512();
+    __m512i acc0 = _mm512_setzero_si512();
+    __m512i acc1 = _mm512_setzero_si512();
+    __m512i acc2 = _mm512_setzero_si512();
+    __m512i acc3 = _mm512_setzero_si512();
+
+    size_t chunks_256 = count / 256;
+    for (size_t i = 0; i < chunks_256; i++) {
+        size_t offset = i * 256;
+        __m512i b0 = _mm512_loadu_si512((const void*)(ages + offset));
+        __m512i b1 = _mm512_loadu_si512((const void*)(ages + offset + 64));
+        __m512i b2 = _mm512_loadu_si512((const void*)(ages + offset + 128));
+        __m512i b3 = _mm512_loadu_si512((const void*)(ages + offset + 192));
+
+        acc0 = _mm512_add_epi64(acc0, _mm512_sad_epu8(b0, zero));
+        acc1 = _mm512_add_epi64(acc1, _mm512_sad_epu8(b1, zero));
+        acc2 = _mm512_add_epi64(acc2, _mm512_sad_epu8(b2, zero));
+        acc3 = _mm512_add_epi64(acc3, _mm512_sad_epu8(b3, zero));
+    }
+
+    __m512i acc = _mm512_add_epi64(
+        _mm512_add_epi64(acc0, acc1),
+        _mm512_add_epi64(acc2, acc3)
+    );
+
+    size_t processed = chunks_256 * 256;
+    size_t chunks_64 = (count - processed) / 64;
+    for (size_t i = 0; i < chunks_64; i++) {
+        __m512i b = _mm512_loadu_si512((const void*)(ages + processed + i * 64));
+        acc = _mm512_add_epi64(acc, _mm512_sad_epu8(b, zero));
+    }
+
+    sum = _mm512_reduce_add_epi64(acc);
+
+    for (size_t i = processed + chunks_64 * 64; i < count; i++) {
+        sum += ages[i];
+    }
+    return sum;
+}
+
+uint64_t sum_ages_avx512(UserSoA *users) {
+    return sum_bytes_avx512(users->ages, users->count);
+}
+#endif
 
 // Thread function for parallel processing
 thread_return_t THREAD_CALL thread_sum_ages(void *arg) {
     ThreadData *data = (ThreadData*)arg;
-    uint64_t local_sum = 0;
+    data->result = sum_bytes_avx2(data->ages + data->start, data->end - data->start);
     
-    for (size_t i = data->start; i < data->end; i++) {
-        local_sum += data->ages[i];
-    }
-    
-    data->result = local_sum;
 #ifdef HAVE_WINDOWS_THREADS
     return 0;
 #else
@@ -277,10 +330,28 @@ thread_return_t THREAD_CALL thread_sum_ages(void *arg) {
 #endif
 }
 
-// SumAgesThreads - parallel processing with threads
+// SumAgesThreads - parallel processing with persistent OpenMP threads or fallback to pthreads
 uint64_t sum_ages_threads(UserSoA *users) {
     if (users->count == 0) return 0;
-    
+
+#ifdef _OPENMP
+    uint64_t total_sum = 0;
+    int num_threads = NUM_THREADS;
+    #pragma omp parallel num_threads(num_threads) reduction(+:total_sum)
+    {
+        int tid = omp_get_thread_num();
+        int nth = omp_get_num_threads();
+        size_t chunk_size = users->count / nth;
+        size_t start = tid * chunk_size;
+        size_t end = (tid == nth - 1) ? users->count : start + chunk_size;
+#ifdef __AVX512BW__
+        total_sum += sum_bytes_avx512(users->ages + start, end - start);
+#else
+        total_sum += sum_bytes_avx2(users->ages + start, end - start);
+#endif
+    }
+    return total_sum;
+#else
     int num_threads = NUM_THREADS;
     if (num_threads > (int)users->count) {
         num_threads = users->count;
@@ -325,6 +396,7 @@ uint64_t sum_ages_threads(UserSoA *users) {
     }
     
     return total_sum;
+#endif
 }
 
 // Thread function for parallel processing with unrolling
@@ -415,12 +487,21 @@ BenchmarkResult benchmark(const char *name, uint64_t (*func)(UserSoA*), UserSoA 
     // Warmup
     func(data);
     
-    // Measure
-    double start = get_time_ms();
-    result.result = func(data);
-    double end = get_time_ms();
+    // Measure best of multiple iterations for stable micro-benchmarking
+    double best_time = 1e9;
+    const int iters = 10;
+    for (int i = 0; i < iters; i++) {
+        __asm__ volatile("" : : "r"(data->ages) : "memory");
+        double start = get_time_ms();
+        uint64_t val = func(data);
+        __asm__ volatile("" : "+r"(val) : : "memory");
+        double end = get_time_ms();
+        result.result = val;
+        double dt = end - start;
+        if (dt < best_time) best_time = dt;
+    }
     
-    result.time_ms = end - start;
+    result.time_ms = best_time;
     return result;
 }
 
@@ -433,12 +514,21 @@ BenchmarkResult benchmark_aos(const char *name, uint64_t (*func)(User*, size_t),
     // Warmup
     func(data, count);
     
-    // Measure
-    double start = get_time_ms();
-    result.result = func(data, count);
-    double end = get_time_ms();
+    // Measure best of multiple iterations
+    double best_time = 1e9;
+    const int iters = 10;
+    for (int i = 0; i < iters; i++) {
+        __asm__ volatile("" : : "r"(data) : "memory");
+        double start = get_time_ms();
+        uint64_t val = func(data, count);
+        __asm__ volatile("" : "+r"(val) : : "memory");
+        double end = get_time_ms();
+        result.result = val;
+        double dt = end - start;
+        if (dt < best_time) best_time = dt;
+    }
     
-    result.time_ms = end - start;
+    result.time_ms = best_time;
     return result;
 }
 
@@ -485,7 +575,8 @@ int main(int argc, char *argv[]) {
         NUM_USERS = strtoul(argv[1], NULL, 10);
     }
     
-    NUM_THREADS = get_cpu_cores();
+    int cores = get_cpu_cores();
+    NUM_THREADS = (cores > 8) ? 8 : cores;
     
     printf("Processing %zu users\n", NUM_USERS);
     printf("C provides maximum performance with manual optimization!\n");
@@ -497,9 +588,9 @@ int main(int argc, char *argv[]) {
     
     // Traditional Array of Structs
 #ifdef _WIN32
-    User *users = _aligned_malloc(NUM_USERS * sizeof(User), 32);
+    User *users = _aligned_malloc(NUM_USERS * sizeof(User), 64);
 #else
-    User *users = aligned_alloc(32, NUM_USERS * sizeof(User));
+    User *users = aligned_alloc(64, NUM_USERS * sizeof(User));
 #endif
     if (!users) {
         fprintf(stderr, "Failed to allocate memory for users\n");
@@ -534,7 +625,7 @@ int main(int argc, char *argv[]) {
     printf("🚀 Running benchmarks...\n");
     printf("\n");
     
-    BenchmarkResult results[10];
+    BenchmarkResult results[16];
     int result_count = 0;
     
     // Basic approaches
@@ -544,7 +635,10 @@ int main(int argc, char *argv[]) {
     // Optimized approaches
     results[result_count++] = benchmark("C Unrolled", sum_ages_unrolled, users_soa);
     results[result_count++] = benchmark("C Pointer", sum_ages_pointer, users_soa);
-    results[result_count++] = benchmark("C AVX/SIMD", sum_ages_avx, users_soa);
+    results[result_count++] = benchmark("C AVX2", sum_ages_avx, users_soa);
+#ifdef __AVX512BW__
+    results[result_count++] = benchmark("C AVX-512", sum_ages_avx512, users_soa);
+#endif
     
     // Parallel approaches
     results[result_count++] = benchmark("C Threads", sum_ages_threads, users_soa);
